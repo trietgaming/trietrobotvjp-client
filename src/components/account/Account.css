@@ -1,0 +1,35 @@
+.main-account-div {
+    padding: 1em 0em 1em 10%;
+}
+
+.left-account-tab {
+  background-color: #212529;
+  padding: 1.1em 0em;
+  height: 75vh;
+  border-radius: 10px;
+}
+
+.left-account-tab .account-tab {
+  padding: 0.5em 5em;
+  margin: 0.5em 1em;
+  color: white!important;
+  white-space: nowrap;
+}
+
+.tab-pane {
+  padding: 2em 2em ;
+  background-color: #212529;
+  height: 75vh;
+  border-radius: 10px;
+}
+
+.tab-content {
+  width: 1280px;
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+#avatar {
+  width: 6em;
+  border-radius: 100%;
+}
