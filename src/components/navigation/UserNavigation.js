@@ -7,6 +7,7 @@ function UserNavigation({ user }) {
   const { logout, currentUser } = useAuth();
   const [width, setWidth] = useState(window.innerWidth);
   const iconSize = `${width < 455? 'fa-md': 'fa-lg'}`;
+  const username = currentUser.displayName;
 
   async function logOut () {
     try {
@@ -28,7 +29,7 @@ function UserNavigation({ user }) {
     <nav className="navbar-expand fixed-top" role="navigation" id="navigation-bar">
       <div className="navbar navbar-dark bg-dark container-fluid">
         <Link className="navbar-brand logo me-auto order-0" to="/">
-          <img src="/favicon.svg" alt="" width="35" height="35" className="d-inline-block align-text-center"/>
+          <img src="/favicon.svg" alt="" width="40" height="40" className="d-inline-block align-text-center"/>
           <span id= "brandname">TrietRoBotVjp</span>
         </Link>
         <div className="collapse navbar-collapse">
@@ -52,8 +53,13 @@ function UserNavigation({ user }) {
           <div className="ms-auto order-3">
             <div className="nav-item dropdown">
               <button className={`btn btn-dark btn-${width <= 337? 'sm': 'lg'}`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <span id="username-nav">{width<=1024?currentUser.displayName.split(' ').reverse()[0] :currentUser.displayName}</span>
-                <img src="/default-avatar.jpg" alt="" width="40" height="40" className="d-inline-block align-text-center user-avatar"/>
+                <span id="username-nav">{
+                    username && width<=1024 && username.includes(' ')?
+                      username.split(' ').reverse()[0]
+                    : width<=1024 && username && username.length <=8?
+                      username
+                      : width<=1024? '': username && username}</span>
+                <img src={`${currentUser.photoURL || 'default-avatar.jpg'}`} alt="" width="40" height="40" className="d-inline-block align-text-center user-avatar"/>
           	  </button>
               <ul className="dropdown-menu dropdown-menu-right bg-dark dropdown-menu-dark" aria-labelledby="dropdownMenuButton1" style={{right: 0, left: 'auto', width: '100%'}}>
 

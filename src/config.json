@@ -1,0 +1,13 @@
+{
+  "SERVER_URL": "https://localhost:8080",
+  "DISCORD_OAUTH2_URL": "https://discord.com/api/oauth2/authorize?client_id=896342371028041738&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord-login&response_type=code&scope=identify%20email",
+  "FIREBASE_CONFIG": {
+    "apiKey": "AIzaSyAaakBq_-lYLUP_h1ieqMmLRmXPyERrSDg",
+    "authDomain": "trietrobotvjp1.firebaseapp.com",
+    "projectId": "trietrobotvjp1",
+    "storageBucket": "trietrobotvjp1.appspot.com",
+    "messagingSenderId": "835158515794",
+    "appId": "1:835158515794:web:6c33a58b5db0bfe882bf8b",
+    "measurementId": "G-QH5ZFX77TT"
+  }
+}

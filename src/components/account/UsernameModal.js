@@ -1,6 +1,5 @@
 function UsernameModal (props) {
   const { username, changeUsername, loading, handleUsernameChange, error, success } = props.data;
-  console.log(error);
   return (
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content bg-dark">
@@ -19,11 +18,11 @@ function UsernameModal (props) {
             </div>
           }
           <label htmlFor="username-input">Nhập tên người dùng mới</label>
-          <input className="form-control bg-secondary mt-3 border-dark text-light" onChange={handleUsernameChange} value={username}/>
+          <input className={`form-control bg-secondary mt-3 border-dark text-light ${(loading || success) && 'disabled'}`} onChange={handleUsernameChange} value={username}/>
         </div>
         <div className="modal-footer border-dark">
           <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-          <button type="button" className={`btn btn-${success? 'success disabled': 'primary'}`} onClick={changeUsername}>
+          <button type="button" className={`btn btn-${success || loading? 'success disabled': 'primary'}`} onClick={!success? changeUsername: undefined}>
             {loading? 'Đang lưu...': success?'Thành công': 'Lưu thay đổi'}
           </button>
         </div>

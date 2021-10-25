@@ -1,8 +1,18 @@
 import UserApp from '../Apps/UserApp';
 import DefaultApp from '../Apps/DefaultApp';
 import React, { useContext, useState, useEffect } from 'react';
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { auth, FBprovider } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  sendEmailVerification,
+  signInWithPopup,
+  fetchSignInMethodsForEmail,
+  OAuthProvider,
+  linkWithPopup
+} from "firebase/auth";
 import '../components/entryLoad.css';
 const AuthContext = React.createContext();
 
@@ -20,6 +30,10 @@ export function AuthProvider({ children }) {
     </div>
   );
 
+  function verifyEmail() {
+    return sendEmailVerification(auth.currentUser);
+  }
+
   async function register(username, email, password) {
     await createUserWithEmailAndPassword(auth, email, password);
     return updateProfile(auth.currentUser, {
@@ -36,7 +50,24 @@ export function AuthProvider({ children }) {
   }
 
   function updateUserProfile(information) {
-    return updateProfile(auth.currentUser, information).then(() => setTimeout(window.location.replace(window.location.href), 3500));
+    return updateProfile(auth.currentUser, information)
+    .then(() => setTimeout(window.location.replace(window.location.href), 4500));
+  }
+
+  function loginWithFacebook() {
+    return signInWithPopup(auth, FBprovider)
+  }
+
+  function getLoginMethodsForEmail(email) {
+    return fetchSignInMethodsForEmail(auth, email);
+  }
+
+  function getCredentialFromResult (result) {
+    return OAuthProvider.credentialFromResult(result);
+  }
+
+  function linkFacebookAccount() {
+    return linkWithPopup(auth.currentUser, FBprovider).then(() => window.location.replace(window.location.href))
   }
 
   useEffect(() => {
@@ -59,6 +90,11 @@ export function AuthProvider({ children }) {
     login,
     logout,
     updateUserProfile,
+    verifyEmail,
+    loginWithFacebook,
+    getLoginMethodsForEmail,
+    getCredentialFromResult,
+    linkFacebookAccount,
     app
   }
 
