@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { extraReducers as logoutExtraReducers } from "./logout";
 import { auth as firebaseAuth } from "../firebase";
 import store from "../../App/store";
 
@@ -16,14 +15,12 @@ const auth = createSlice({
       state.authenticated = Boolean(action.payload);
     }
   },
-  extraReducers: {
-    ...logoutExtraReducers,
-  },
 });
 
 export const { setCurrentUser } = auth.actions;
 
 firebaseAuth.onAuthStateChanged((user) => {
+  console.log(user);
   store.dispatch(setCurrentUser(user));
 });
 

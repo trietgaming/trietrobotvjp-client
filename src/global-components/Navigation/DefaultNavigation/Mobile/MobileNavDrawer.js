@@ -17,7 +17,7 @@ import {
 } from "../../../../assets/icons";
 import CloseIcon from "@mui/icons-material/Close";
 import ChangeThemeModeButton from "../ChangeThemeModeButton";
-import MobileTab from "./MobileTab";
+import MobileTab from "../../components/MobileTab";
 import StyledNavButton from "../../components/StyledNavButton";
 
 const MobileNavDrawer = ({ show, hideNav, onOpen }) => {
@@ -33,7 +33,7 @@ const MobileNavDrawer = ({ show, hideNav, onOpen }) => {
       }}
     >
       <List sx={{ width: "270px" }}>
-        <ListItem sx={{ justifyContent: "flex-end" }}>
+        <ListItem sx={{ justifyContent: "flex-start" }}>
           <IconButton onClick={hideNav}>
             <CloseIcon />
           </IconButton>

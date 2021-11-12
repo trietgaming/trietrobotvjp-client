@@ -18,9 +18,9 @@ import {
   Coin,
   ShopOutlined,
   Shop,
-} from "../../../assets/icons";
+} from "../../../../assets/icons";
 import CloseIcon from "@mui/icons-material/Close";
-import MobileTab from "./MobileTab";
+import MobileTab from "../../components/MobileTab";
 
 const MobileNavDrawer = ({ show, hideNav, onOpen }) => {
   return (

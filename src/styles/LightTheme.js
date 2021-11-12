@@ -17,7 +17,7 @@ export const lightThemeOptions = {
       main: '#fb0f0f',
     },
     success: {
-      main: '#00c853',
+      main: '#009432',
     },
     info: {
       main: "#007bff",

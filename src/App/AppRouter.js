@@ -8,11 +8,17 @@ import { lazy, Suspense } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Navigation from "../global-components/Navigation";
 import { useSelector } from "react-redux";
+import NotFound from "../pages/NotFound";
+import Games from "../pages/Games";
+import Help from "../pages/Help";
+import Inventory from "../pages/Inventory";
+import Balance from "../pages/Balance";
+import Shop from "../pages/Shop";
+import Home from "../pages/Home";
+import Account from "../pages/Account";
 
-const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Authentication/Login"));
 const Register = lazy(() => import("../pages/Authentication/Register"));
-const NotFound = lazy(() => import("../pages/NotFound"));
 
 const Loading = () => (
   <div
@@ -65,6 +71,15 @@ const AppRouter = () => {
           <WithoutNavRoute>
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/help" component={Help} />
+              <Route path="/games" component={Games} />
+              <Route path="/balance" component={Balance} />
+              <Route path="/inventory" component={Inventory} />
+              <Route path="/shop" component={Shop} />
+              <Route
+                path="/account"
+                component={authenticated ? Account : RedirectToHomePage}
+              />
               <WithoutNavRoute component={NotFound} />
             </Switch>
           </WithoutNavRoute>

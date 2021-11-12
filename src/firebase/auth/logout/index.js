@@ -14,16 +14,3 @@ export const logout = createAsyncThunk(
     }
   }
 );
-
-export const extraReducers = {
-  [logout.pending]: (state, action) => {
-    state.loading = true;
-  },
-  [logout.fulfilled]: (state, action) => {
-    state.loading = false;
-  },
-  [logout.rejected]: (state, action) => {
-    state.loading = false;
-    state.error = action.payload;
-  },
-};

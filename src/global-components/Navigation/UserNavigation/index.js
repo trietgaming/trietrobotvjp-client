@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Hidden } from "@mui/material";
 import ApplicationLogo from "../components/ApplicationLogo";
 import RightNav from "./RightNav";
 import CenterNav from "./CenterNav";
-import MobileNav from "./MobileNav";
+import MobileNav from "./Mobile/MobileNav";
 
 const UserNavigation = () => {
   console.log("rerender nav");

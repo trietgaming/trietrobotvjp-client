@@ -16,7 +16,7 @@ const NotFound = () => {
       <Typography variant="h1" color="primary" sx={{ fontWeight: "bold" }}>
         404
       </Typography>
-      <Typography variant="h6" color="secondary" sx={{ mt: 2, mb: 3 }}>
+      <Typography variant="h6" color="secondary" sx={{ mt: 2, mb: 3, mx: 3 }}>
         Trang bạn đang muốn tìm có vẻ như không tồn tại, hoặc đã bị xóa nhưng
         cũng có thể là tạm thời không truy cập được.
       </Typography>

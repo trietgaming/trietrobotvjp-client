@@ -5,7 +5,7 @@ const SmallNav = () => {
   return (
     <Toolbar
       sx={{
-        position: { xs: "relative", md: "fixed" },
+        position: { xs: "relative", lg: "fixed" },
       }}
     >
       <Button

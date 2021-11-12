@@ -20,7 +20,7 @@ const AccountButton = () => {
           <Avatar
             src={currentUser.photoURL || "default-avatar.jpg"}
             alt="userAvatar"
-            sx={{ borderRadius: "100%", mr: 1 }}
+            sx={{ borderRadius: "100%" }}
           />
         }
         onClick={() => setAccountMenuOpen(true)}

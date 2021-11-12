@@ -3,6 +3,7 @@ import { Settings, Logout, Help } from "@mui/icons-material";
 import ChangeThemeModeButton from "./ChangeThemeModeButton";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../firebase/auth/logout";
+import { Link } from "react-router-dom";
 
 const AccountMenu = ({
   toggleMenuEl,
@@ -22,7 +23,7 @@ const AccountMenu = ({
         sx: {
           overflow: "visible",
           filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-          mt: .5,
+          mt: 0.5,
           "& .MuiAvatar-root": {
             width: 32,
             height: 32,
@@ -34,7 +35,12 @@ const AccountMenu = ({
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem onClick={handleAccountMenuClose} sx={{ mt: 0.5 }}>
+      <MenuItem
+        onClick={handleAccountMenuClose}
+        to="/account"
+        component={Link}
+        sx={{ mt: 0.5 }}
+      >
         <ListItemIcon>
           <Settings />
         </ListItemIcon>

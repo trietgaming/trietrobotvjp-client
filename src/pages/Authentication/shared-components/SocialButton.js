@@ -4,11 +4,11 @@ const SocialButton = ({ Icon, children, bgColor, textColor, sx, onClick }) => (
   <Button
     variant="contained"
     sx={{
-      ...sx,
       width: "100%",
       color: textColor,
       backgroundColor: bgColor,
       "&:hover": { backgroundColor: `${bgColor}df` },
+      ...sx,
     }}
     onClick={onClick}
   >
