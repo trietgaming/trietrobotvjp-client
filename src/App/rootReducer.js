@@ -1,8 +1,8 @@
-import themeLightMode from '../global-components/Navigation/themeSlice';
-import auth from '../firebase/auth';
+import isLightMode from '@assets/styles/themeSlice';
+import auth from '@appFirebase/auth';
 
 const rootReducer = {
-  themeLightMode,
+  isLightMode,
   auth,
 }
 

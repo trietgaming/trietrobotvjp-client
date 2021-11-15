@@ -1,27 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth as firebaseAuth } from "../firebase";
-import store from "../../App/store";
+import initAppFirebase from "@appFirebase";
 
 const auth = createSlice({
   name: "auth",
   initialState: {
-    authenticated: false,
-    authEventTriggered: false,
+    firebase: initAppFirebase(),
+    isAuthenticated: false,
+    isAuthEventTriggered: false,
   },
   reducers: {
-    setCurrentUser: (state, action) => {
-      state.currentUser = JSON.parse(JSON.stringify(action.payload));
-      state.authEventTriggered = true;
-      state.authenticated = Boolean(action.payload);
-    }
+    changeAuthStatus: (state, { payload: user }) => ({
+      ...state,
+      currentUser: user,
+      isAuthenticated: Boolean(user),
+      isAuthEventTriggered: true,
+    }),
   },
 });
 
-export const { setCurrentUser } = auth.actions;
-
-firebaseAuth.onAuthStateChanged((user) => {
-  console.log(user);
-  store.dispatch(setCurrentUser(user));
-});
+export const { changeAuthStatus } = auth.actions;
 
 export default auth.reducer;
