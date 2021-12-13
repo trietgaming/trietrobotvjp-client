@@ -6,35 +6,37 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
 import Navigation from "../global-components/Navigation";
+import CenteredLoading from "@components/CenteredLoading";
 
-import NotFound from "../pages/NotFound";
-import Games from "../pages/Games";
-import Help from "../pages/Help";
-import Inventory from "../pages/Inventory";
-import Balance from "../pages/Balance";
-import Shop from "../pages/Shop";
-import Home from "../pages/Home";
-import Account from "../pages/Account";
+const NotFound = lazy(() => import("../pages/NotFound"));
+const Games = lazy(() => import("../pages/Games"));
+const Help = lazy(() => import("../pages/Help"));
+const Inventory = lazy(() => import("../pages/Inventory"));
+const Balance = lazy(() => import("../pages/Balance"));
+const Shop = lazy(() => import("../pages/Shop"));
+const Home = lazy(() => import("../pages/Home"));
+const Account = lazy(() => import("../pages/Account"));
+const ForgotPassword = lazy(() =>
+  import("../pages/Authentication/ForgotPassword")
+);
 
 const Login = lazy(() => import("../pages/Authentication/Login"));
 const Register = lazy(() => import("../pages/Authentication/Register"));
 
-const Loading = () => (
-  <div
-    style={{
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-    }}
-  >
-    <CircularProgress />
-  </div>
-);
-
 const RedirectToHomePage = () => <Redirect to="/" />;
+
+const AppRoute = ({ path, component, exact, withoutNav }) => {
+  const Component = component;
+  return (
+    <Route path={path} exact={exact}>
+      {!withoutNav && <Navigation />}
+      <Suspense fallback={<CenteredLoading />}>
+        <Component />
+      </Suspense>
+    </Route>
+  );
+};
 
 const AppRouter = () => {
   console.log("rerender AppRouter");
@@ -48,38 +50,42 @@ const AppRouter = () => {
   //use const {a, b} = useSelector(state => state.object) will rerender unnecessary
 
   return isAuthEventTriggered ? (
-    <Suspense fallback={<Loading />}>
-      <Router>
-        <Switch>
-          <Route
-            path="/login"
-            component={isAuthenticated ? RedirectToHomePage : Login}
-          />
-          <Route
-            path="/register"
-            component={isAuthenticated ? RedirectToHomePage : Register}
-          />
-          <Route>
-            <Navigation />
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/help" component={Help} />
-              <Route path="/games" component={Games} />
-              <Route path="/balance" component={Balance} />
-              <Route path="/inventory" component={Inventory} />
-              <Route path="/shop" component={Shop} />
-              <Route
-                path="/account"
-                component={isAuthenticated ? Account : RedirectToHomePage}
-              />
-              <Route component={NotFound} />
-            </Switch>
-          </Route>
-        </Switch>
-      </Router>
-    </Suspense>
+    <Router>
+      <Switch>
+        <AppRoute
+          path="/login"
+          component={isAuthenticated ? RedirectToHomePage : Login}
+          withoutNav
+        />
+        <AppRoute
+          path="/register"
+          component={isAuthenticated ? RedirectToHomePage : Register}
+          withoutNav
+        />
+        <AppRoute
+          path="/forgot-password"
+          component={isAuthenticated ? RedirectToHomePage : ForgotPassword}
+          withoutNav
+        />
+        <Route>
+          <Switch>
+            <AppRoute path="/" exact component={Home} />
+            <AppRoute path="/help" component={Help} />
+            <AppRoute path="/games" component={Games} />
+            <AppRoute path="/balance" component={Balance} />
+            <AppRoute path="/inventory" component={Inventory} />
+            <AppRoute path="/shop" component={Shop} />
+            <AppRoute
+              path="/account"
+              component={isAuthenticated ? Account : RedirectToHomePage}
+            />
+            <AppRoute component={NotFound} withoutNav />
+          </Switch>
+        </Route>
+      </Switch>
+    </Router>
   ) : (
-    <Loading />
+    <CenteredLoading />
   );
 };
 

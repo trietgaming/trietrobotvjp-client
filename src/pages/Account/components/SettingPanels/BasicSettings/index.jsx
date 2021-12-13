@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import BasicSettingsComponent from "./BasicSettingsComponent";
@@ -8,6 +8,8 @@ import useUpdateUserData from "@customHooks/useUpdateUserData";
 import { useSnackbar } from "notistack";
 import getErrorCodeTranslated from "@appFirebase/errorCodeTranslator";
 import useUpdateUser from "@customHooks/useUpdateUser";
+import { getIdToken } from "@firebase/auth";
+import axios from "axios";
 
 const BasicSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -16,6 +18,39 @@ const BasicSettings = () => {
   const linkFBAccount = useFBAccountLink();
   const updateUserData = useUpdateUserData();
   const fileInputRef = useRef();
+
+  const FileInputField = useCallback(
+    ({ onChange }) => (
+      <input
+        type="file"
+        id="avatar-upload"
+        style={{ display: "none" }}
+        ref={fileInputRef}
+        onChange={onChange}
+      />
+    ),
+    []
+  );
+
+  useEffect(() => {
+    getIdToken(currentUser, true).then(async (idToken) => {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/users/account`,
+        {
+          id_token: idToken,
+        }
+      );
+
+      currentUser.account = {
+        discordId: response.data.discord_id,
+        facebookId: response.data.facebook_id,
+        isBalancePublic: response.data.public_balance,
+        isInventoryPublic: response.data.public_inventory,
+        isTradeable: response.data.tradeable,
+      };
+      updateUser(currentUser);
+    });
+  }, []);
 
   const handleLinkFBAccount = useCallback(async () => {
     try {
@@ -60,7 +95,6 @@ const BasicSettings = () => {
       console.log("submit");
       try {
         await updateUserData(values);
-        updateUser();
         handleResetForm(resetForm, false);
         enqueueSnackbar("Thay đổi thành công!", { variant: "success" });
       } catch (err) {
@@ -75,28 +109,16 @@ const BasicSettings = () => {
 
   console.log(currentUser);
   return (
-    <Formik
-      {...formik}
-      component={(props) => (
-        <BasicSettingsComponent
-          {...{
-            currentUser,
-            handleResetForm,
-            handleLinkFBAccount,
-            fileInputField: ({ onChange }) => (
-              <input
-                type="file"
-                id="avatar-upload"
-                style={{ display: "none" }}
-                ref={fileInputRef}
-                onChange={onChange}
-              />
-            ),
-          }}
-          {...props}
-        />
-      )}
-    />
+    <Formik {...formik}>
+      <BasicSettingsComponent
+        {...{
+          currentUser,
+          handleResetForm,
+          handleLinkFBAccount,
+          FileInputField,
+        }}
+      />
+    </Formik>
   );
 };
 

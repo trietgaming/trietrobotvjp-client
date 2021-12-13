@@ -1,8 +1,10 @@
 import RegisterForm from "./components/RegisterForm";
 import Container from "@mui/material/Container";
 import SmallNav from "../shared-components/SmallNav";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import SocialRegister from "./components/SocialRegister";
 
-const Register = () => {
+const MainRegister = () => {
   return (
     <>
       <SmallNav />
@@ -10,18 +12,25 @@ const Register = () => {
         disableGutters
         sx={{
           display: "flex",
-          height: "100%",
-          flexShrink: 0,
-          direction: {
-            xs: "row",
-            lg: "column",
-          },
-          alignItems: { xs: "initial", lg: "center" },
+          justifyContent: "center",
+          position: "relative",
+          flexDirection: "column",
         }}
       >
         <RegisterForm />
       </Container>
     </>
+  );
+};
+
+const Register = () => {
+  const { url } = useRouteMatch();
+  console.log(url);
+  return (
+    <Switch>
+      <Route path={`${url}/`} exact component={MainRegister} />
+      <Route path={`${url}/social`} exact component={SocialRegister} />
+    </Switch>
   );
 };
 

@@ -5,6 +5,7 @@ import Divider from "@mui/material/Divider";
 import SocialButton from "../../../../Authentication/shared-components/SocialButton";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import { DiscordIcon } from "@assets/icons";
+import useUser from "@customHooks/useUser";
 
 const PanelHeader = memo(() => {
   console.log("header RErender");
@@ -21,9 +22,10 @@ const PanelHeader = memo(() => {
 });
 
 const SocialLinkingComponent = memo(
-  ({ handleLinkFBAccount, handleDiscordLinking, providerData }) => {
+  ({ handleLinkFBAccount, handleDiscordLinking }) => {
     console.log("rerender sol");
-    const FBData = providerData.find(
+    const user = useUser();
+    const FBData = user.providerData.find(
       (provider) => provider.providerId === "facebook.com"
     );
     return (
@@ -35,8 +37,11 @@ const SocialLinkingComponent = memo(
             Icon={DiscordIcon}
             textColor="white"
             sx={{ mt: 3 }}
+            disabled={Boolean(!user.account || user.account?.discordId)}
           >
-            Liên kết tài khoản Discord
+            {user.account?.discordId
+              ? `ID: ${user.account?.discordId}`
+              : "Liên kết Discord"}
           </SocialButton>
         </Container>
         <Container>
@@ -48,7 +53,7 @@ const SocialLinkingComponent = memo(
             onClick={handleLinkFBAccount}
             disabled={Boolean(FBData)}
           >
-            {FBData?.displayName || "Liên kết tài khoản Facebook"}
+            {FBData?.displayName || "Liên kết Facebook"}
           </SocialButton>
         </Container>
       </>

@@ -16,11 +16,11 @@ function App() {
   console.log(useSelector((state) => state.auth.firebase));
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user);
+    auth.onAuthStateChanged(async (user) => {
+      console.log(user);   
+
       updateUser(user);
     });
-    return unsubscribe;
   }, []);
 
   const theme = useMemo(

@@ -26,6 +26,7 @@ const LoginForm = () => {
       error: "",
     },
     onSubmit: async ({ email, password }, { setStatus }) => {
+      setStatus({ error: "" });
       try {
         await signInWithEmailAndPassword(auth, email, password);
       } catch (error) {

@@ -2,12 +2,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const SmallNav = () => {
+const SmallNav = ({ sx }) => {
   return (
     <Toolbar
       sx={{
-        position: { xs: "relative", lg: "fixed" },
+        position: "relative",
         mb: 2,
+        ...sx,
       }}
     >
       <Button

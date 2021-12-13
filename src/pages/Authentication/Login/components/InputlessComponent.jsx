@@ -1,7 +1,7 @@
 import SocialButton from "../../shared-components/SocialButton";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import { DiscordIcon } from "../../../../assets/icons";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, Redirect } from "react-router-dom";
 import { memo } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -34,9 +34,7 @@ const AboveComponent = memo(() => {
 const LowerComponent = memo(({ loading, submitError }) => {
   const dispatch = useDispatch();
 
-  const handleFBLogin = () => {
-    
-  };
+  const handleFBLogin = () => {};
 
   return (
     <>
@@ -48,7 +46,13 @@ const LowerComponent = memo(({ loading, submitError }) => {
           mb: 1,
         }}
       >
-        <Button type="button" variant="text" color="primary">
+        <Button
+          type="button"
+          variant="text"
+          color="primary"
+          component={ReactRouterLink}
+          to="/forgot-password"
+        >
           Quên mật khẩu?
         </Button>
         <Button
@@ -75,6 +79,8 @@ const LowerComponent = memo(({ loading, submitError }) => {
         Icon={DiscordIcon}
         textColor="white"
         sx={{ mt: 3 }}
+        component="a"
+        href={import.meta.env.VITE_DISCORD_OAUTH2_URL}
       >
         Đăng nhập với Discord
       </SocialButton>

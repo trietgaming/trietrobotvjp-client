@@ -1,14 +1,24 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import RegisterFormComponent from "./RegisterFormComponent";
-import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
+import { signInWithCustomToken } from "@firebase/auth";
 import useAuth from "@customHooks/useAuth";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
-import useUpdateUser from "@customHooks/useUpdateUser";
+import axios from "axios";
+import { useEffect } from "react";
 
 const RegisterForm = () => {
-  const updateUser = useUpdateUser();
   const auth = useAuth();
+
+  useEffect(() => {
+    const handleEnter = (e) => {
+      if (e.code !== "Enter") return;
+      document.getElementById("register-submit").click();
+    };
+    window.addEventListener("keypress", handleEnter);
+    return () => window.removeEventListener("keypress", handleEnter);
+  }, []);
+
   const formik = {
     validationSchema: yup.object({
       email: yup
@@ -41,16 +51,23 @@ const RegisterForm = () => {
       error: "",
     },
     onSubmit: async ({ username, email, password }, { setStatus }) => {
+      setStatus({ error: "" });
       try {
-        await createUserWithEmailAndPassword(auth, email, password).then(() =>
-          updateProfile(auth.currentUser, {
+        const response = await axios.post(
+          import.meta.env.VITE_BACKEND_URL + "/auth/register",
+          {
+            email: email,
+            password: password,
             displayName: username,
-          }).then(() => {
-            updateUser();
-          })
+          }
         );
+        if (response && response.data.token){
+          document.getElementById("register-submit").textContent = "Đăng ký thành công, đang đăng nhập..."
+          await signInWithCustomToken(auth, response.data.token);
+        }
       } catch (error) {
-        setStatus({ error: getErrorTranslated(error.code) });
+        console.log(JSON.stringify(error));
+        setStatus({ error: getErrorTranslated(error.response.data.code) });
       }
     },
   };

@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { AboveComponent, LowerComponent } from "./InputlessComponent";
+import Box from "@mui/material/Box";
 
 const RegisterFormComponent = ({
   values,
@@ -9,28 +10,23 @@ const RegisterFormComponent = ({
   handleBlur,
   touched,
   errors,
-  handleSubmit,
   status: { error: submitError },
   isSubmitting,
+  isValid,
+  dirty,
 }) => {
   return (
-    <Container
-      maxWidth="sm"
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ px: { xs: 0, sm: "initial" } }}
-    >
+    <Container maxWidth="sm" sx={{ px: { xs: 0, sm: "initial" } }}>
       <Paper
         elevation={5}
         sx={{
-          px: 2,
           borderRadius: 2,
           py: 5,
           visibility: { xs: "hidden", sm: "visible" },
         }}
         square
       >
-        <div style={{ visibility: "visible" }}>
+        <Container sx={{ visibility: "visible" }}>
           <AboveComponent />
           <TextField
             fullWidth
@@ -84,8 +80,10 @@ const RegisterFormComponent = ({
               touched.passwordConfirmation && errors.passwordConfirmation
             }
           />
-          <LowerComponent loading={isSubmitting} submitError={submitError} />
-        </div>
+          <LowerComponent
+            {...{ loading: isSubmitting, submitError, isValid, dirty }}
+          />
+        </Container>
       </Paper>
     </Container>
   );

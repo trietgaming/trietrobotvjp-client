@@ -2,9 +2,14 @@ import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 import react from "@vitejs/plugin-react";
 import fs from "fs";
+import eslint from "@rollup/plugin-eslint";
 
 export default defineConfig({
-  plugins: [react(), svgrPlugin()],
+  plugins: [
+    react(),
+    svgrPlugin(),
+    { ...eslint({ include: "src/**/*.+(jsx | js)" }), enforce: "pre" },
+  ],
   resolve: {
     alias: [
       { find: "@assets", replacement: `${__dirname}/src/assets` },
@@ -15,6 +20,7 @@ export default defineConfig({
         find: "@components",
         replacement: `${__dirname}/src/global-components`,
       },
+      { find: "@CONFIG", replacement: `${__dirname}/app-config.json` },
     ],
   },
   server: {

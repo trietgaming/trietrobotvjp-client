@@ -8,6 +8,7 @@ const SocialButton = ({
   sx,
   onClick,
   disabled,
+  ...rest
 }) => (
   <Button
     variant="contained"
@@ -21,6 +22,7 @@ const SocialButton = ({
     }}
     onClick={onClick}
     disabled={disabled}
+    {...rest}
   >
     <Icon sx={{ left: "0.5em", position: "absolute", mb: 0.1 }} />
     {children}

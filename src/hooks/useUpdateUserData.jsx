@@ -7,25 +7,24 @@ import {
   uploadString,
   getDownloadURL,
 } from "@firebase/storage";
+import useUpdateUser from "./useUpdateUser";
 
 const useUpdateUserData = () => {
   const currentUser = useUser();
+  const updateUser = useUpdateUser();
 
   return useCallback(async ({ username: displayName, selectedFile }) => {
-    if (displayName && displayName !== currentUser.displayName) {
-      try {
-        await updateProfile(currentUser, { displayName })
-      } catch (error) {
-        throw error;
+    if (!currentUser) throw new Error("User is not logged in");
+    try {
+      if (displayName && displayName !== currentUser.displayName) {
+        await updateProfile(currentUser, { displayName });
       }
-    }
-    if (selectedFile) {
-      const storage = getStorage();
-      const storageRef = ref(
-        storage,
-        `/users/${currentUser.uid}/photoImage.jpg`
-      );
-      try {
+      if (selectedFile) {
+        const storage = getStorage();
+        const storageRef = ref(
+          storage,
+          `/users/${currentUser.uid}/photoImage.jpg`
+        );
         await uploadString(
           storageRef,
           selectedFile.replace(/^data:image\/\w+;base64,/, ""),
@@ -33,9 +32,11 @@ const useUpdateUserData = () => {
         );
         const photoURL = await getDownloadURL(storageRef);
         await updateProfile(currentUser, { photoURL });
-      } catch (err) {
-        throw err;
       }
+    } catch (err) {
+      throw err;
+    } finally {
+      updateUser();
     }
   }, []);
 };

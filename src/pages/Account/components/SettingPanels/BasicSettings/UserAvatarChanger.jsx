@@ -4,7 +4,6 @@ import defaultAvatar from "@assets/images/default-avatar.jpg";
 import Typography from "@mui/material/Typography";
 import CreateIcon from "@mui/icons-material/Create";
 import { memo } from "react";
-import Resizer from "react-image-file-resizer";
 import { useSnackbar } from "notistack";
 
 const UserAvatarDisplayer = memo(({ photoURL, selectedFile }) => {
@@ -17,6 +16,12 @@ const UserAvatarDisplayer = memo(({ photoURL, selectedFile }) => {
           "&:hover": { opacity: "0.7" },
           "&:hover .MuiSvgIcon-root": { opacity: "1" },
           transition: ".15s ease-in-out",
+          width: {
+            xs: 128,
+            md: "auto",
+          },
+          left: "50%",
+          transform: "translateX(-50%)",
         }}
       >
         <label htmlFor="avatar-upload">
@@ -57,7 +62,12 @@ const UserAvatarDisplayer = memo(({ photoURL, selectedFile }) => {
           </Box>
         </label>
       </Box>
-      <Typography align="center" variant="body1" color="inherit">
+      <Typography
+        align="center"
+        variant="body1"
+        color="inherit"
+        sx={{ mb: { xs: 4, md: 0 } }}
+      >
         Ảnh đại diện
       </Typography>
     </>
@@ -68,24 +78,66 @@ const UserAvatarChanger = ({
   photoURL,
   setFieldValue,
   selectedFile,
-  fileInputField: FileInputField,
+  FileInputField,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        230,
-        230,
-        "JPEG",
-        70,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        "base64"
-      );
-    });
+  const handleResizeImage = (file, responseUriFunc) => {
+    const resizeImage = ({ image, maxWidth, maxHeight }) => {
+      const qualityDecimal = 70 / 100; // 70 is quality
+      const canvas = document.createElement("canvas");
+
+      let width = image.width;
+      let height = image.height;
+
+      if (width > maxWidth) {
+        height = Math.round((height * maxWidth) / width);
+        width = maxWidth;
+      }
+      if (height > maxHeight) {
+        width = Math.round((width * maxHeight) / height);
+        height = maxHeight;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "rgba(0, 0, 0, 0)";
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(image, 0, 0, width, height);
+
+      return canvas.toDataURL("image/jpeg", qualityDecimal);
+    };
+
+    if (file) {
+      if (file.type && !file.type.includes("image")) {
+        throw Error("File Is NOT Image!");
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          const image = new Image();
+          image.src = reader.result;
+          image.onload = () => {
+            const resizedDataUrl = resizeImage({
+              image,
+              maxWidth: 230,
+              maxHeight: 230,
+            });
+
+            responseUriFunc(resizedDataUrl);
+          };
+        };
+
+        reader.onerror = (error) => {
+          throw Error(error);
+        };
+      }
+    } else {
+      throw Error("File Not Found!");
+    }
+  };
 
   const onFileSelect = async (e) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -93,13 +145,15 @@ const UserAvatarChanger = ({
       return;
     }
     try {
-      const file = await resizeFile(e.target.files[0]);
-      setFieldValue("selectedFile", file);
-    } catch {
-      enqueueSnackbar(
-        "Tệp tải lên không hợp lệ (Tệp không phải hình ảnh).",
-        { variant: "error", persist: true }
-      );
+      handleResizeImage(e.target.files[0], (file) => {
+        setFieldValue("selectedFile", file);
+      });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Tệp tải lên không hợp lệ (Tệp không phải hình ảnh).", {
+        variant: "error",
+        persist: true,
+      });
     }
   };
 

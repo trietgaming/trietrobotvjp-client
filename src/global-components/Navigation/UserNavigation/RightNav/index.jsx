@@ -1,19 +1,17 @@
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Notifications from "@mui/icons-material/Notifications";
+import Notifications from "./Notifications";
 import AccountButton from "./AccountButton";
 import { useLocation } from "react-router";
 
 const RightNav = () => {
   const location = useLocation();
-  const toolBarBorderBottom =
-    location.pathname === "/account"
-      ? {
-          borderBottomColor: "primary.main",
-          borderBottomStyle: "solid",
-          borderBottomWidth: "2px",
-        }
-      : undefined;
+  const toolBarBorderBottom = location.pathname.startsWith("/account")
+    ? {
+        borderBottomColor: "primary.main",
+        borderBottomStyle: "solid",
+        borderBottomWidth: "2px",
+      }
+    : undefined;
 
   return (
     <Toolbar
@@ -24,9 +22,7 @@ const RightNav = () => {
         ...toolBarBorderBottom,
       }}
     >
-      <IconButton sx={{ mx: 2 }}>
-        <Notifications />
-      </IconButton>
+      <Notifications />
       <AccountButton />
     </Toolbar>
   );

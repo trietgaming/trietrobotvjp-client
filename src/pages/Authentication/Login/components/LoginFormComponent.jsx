@@ -23,14 +23,21 @@ const LoginFormComponent = ({
       <Paper
         elevation={5}
         sx={{
-          px: 2,
           borderRadius: 2,
           py: 5,
           visibility: { xs: "hidden", sm: "visible" },
         }}
         square
       >
-        <div style={{ visibility: "visible" }}>
+        <Container
+          sx={{
+            visibility: "visible",
+            px: {
+              xs: 4,
+              sm: 3,
+            },
+          }}
+        >
           <AboveComponent />
           <TextField
             fullWidth
@@ -56,7 +63,7 @@ const LoginFormComponent = ({
             helperText={touched.password && errors.password}
           />
           <LowerComponent loading={isSubmitting} submitError={submitError} />
-        </div>
+        </Container>
       </Paper>
     </Container>
   );
