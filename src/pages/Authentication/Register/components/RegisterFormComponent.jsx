@@ -26,7 +26,7 @@ const RegisterFormComponent = ({
         }}
         square
       >
-        <Container sx={{ visibility: "visible" }}>
+        <Container sx={{ visibility: "visible", px: 4 }}>
           <AboveComponent />
           <TextField
             fullWidth

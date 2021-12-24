@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useFormikContext } from "formik";
 import ReCaptcha from "@components/AppReCaptcha";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -6,18 +6,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress";
-
-const CountDown = ({ onFinish }) => {
-  const [currentCount, setCurrentCount] = useState(30);
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      if (currentCount <= 0) return onFinish();
-      setCurrentCount((prev) => prev - 1); //onFinish must return 0
-    }, 1000); // 1 seconds in miliseconds
-    return () => clearInterval(timerId);
-  });
-  return currentCount;
-};
+import Countdown from "@components/Countdown";
 
 const LowerComponent = () => {
   const {
@@ -27,21 +16,21 @@ const LowerComponent = () => {
     dirty,
   } = useFormikContext();
   const [isHuman, setHuman] = useState(false);
-  const [isCountDown, setCountDown] = useState(false);
+  const [isCountdown, setCountdown] = useState(false);
 
   console.log("isHuman", isHuman);
 
   const handleSubmit = async () => {
     try {
       await submitForm();
-      setCountDown(true);
+      setCountdown(true);
     } catch (err) {
-      setCountDown(false);
+      setCountdown(false);
     }
   };
 
-  const handleCountDownFinish = () => {
-    setCountDown(false);
+  const handleCountdownFinish = () => {
+    setCountdown(false);
   };
 
   const handleCaptchaChange = useCallback((value) => {
@@ -59,16 +48,19 @@ const LowerComponent = () => {
       <Button
         variant="contained"
         sx={{ mt: 3 }}
-        disabled={!isHuman || loading || isCountDown || !isValid || !dirty}
+        disabled={!isHuman || loading || isCountdown || !isValid || !dirty}
         onClick={
-          isHuman && !loading && !isCountDown && dirty && isValid
+          isHuman && !loading && !isCountdown && dirty && isValid
             ? handleSubmit
             : undefined
         }
       >
         {loading && <CircularProgress size={20} sx={{ mr: 1 }} />}
-        {isCountDown ? (
-          <>Gửi lại sau {<CountDown onFinish={handleCountDownFinish} />}</>
+        {isCountdown ? (
+          <>
+            Gửi lại sau{" "}
+            {<Countdown seconds={30} onFinish={handleCountdownFinish} />}
+          </>
         ) : (
           "Gửi yêu cầu"
         )}

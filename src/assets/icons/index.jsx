@@ -15,6 +15,7 @@ import { ReactComponent as _CoinOutlined } from "./svgs/coin-outlined.svg";
 import { ReactComponent as _Coin } from "./svgs/coin-solid.svg";
 import { ReactComponent as _ShopOutlined } from "./svgs/shop-outlined.svg";
 import { ReactComponent as _Shop } from "./svgs/shop-solid.svg";
+import { ReactComponent as _MessengerIcon } from "./svgs/messenger.svg";
 
 const getSvgIcon = (Icon) => (props) =>
   (
@@ -39,3 +40,4 @@ export const CoinOutlined = getSvgIcon(_CoinOutlined);
 export const Coin = getSvgIcon(_Coin);
 export const ShopOutlined = getSvgIcon(_ShopOutlined);
 export const Shop = getSvgIcon(_Shop);
+export const MessengerIcon = getSvgIcon(_MessengerIcon);

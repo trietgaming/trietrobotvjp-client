@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 const ApplicationLogo = (props) => {
   return (
     <StyledNavButton
+      disableRipple
       sx={{
         ml: -1,
         mr: 4,
@@ -17,7 +18,7 @@ const ApplicationLogo = (props) => {
     >
       <AppLogo sx={{ mr: 2 }} fontSize="large" />
       <Typography variant="h6" component="h6" sx={{ textTransform: "none" }}>
-        TrietRoBotVjp
+        TrietRobotVjp
       </Typography>
     </StyledNavButton>
   );

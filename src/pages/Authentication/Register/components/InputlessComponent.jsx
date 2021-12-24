@@ -17,6 +17,7 @@ import ReCaptcha from "@components/AppReCaptcha";
 import { useFormikContext } from "formik";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { discordColor, facebookColor } from "@assets/styles/colors";
 
 const AboveComponent = memo(() => {
   return (
@@ -52,15 +53,16 @@ const StaticLowerComponent = memo(() => {
         <Chip label="Hoặc" />
       </Divider>
       <SocialButton
-        bgColor="#5865F2"
+        bgColor={discordColor}
         Icon={DiscordIcon}
         textColor="white"
         sx={{ mt: 2 }}
+        href={import.meta.env.VITE_DISCORD_OAUTH2_URL}
       >
         Đăng ký bằng Discord
       </SocialButton>
       <SocialButton
-        bgColor="#3360ff"
+        bgColor={facebookColor}
         Icon={FacebookRounded}
         textColor="white"
         sx={{ my: 2 }}
@@ -85,8 +87,9 @@ const StaticLowerComponent = memo(() => {
   );
 });
 
-const LowerComponent = memo(({ loading, submitError, isValid, dirty }) => { //use props and memo instead of context
-  const [isModalOpen, setModalOpen] = useState(false);                      //because of rerendering problem
+const LowerComponent = memo(({ loading, submitError, isValid, dirty }) => {
+  //use props and memo instead of context
+  const [isModalOpen, setModalOpen] = useState(false); //because of rerendering problem
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -102,7 +105,7 @@ const LowerComponent = memo(({ loading, submitError, isValid, dirty }) => { //us
         color="primary"
         sx={{ mt: 2, mb: 3 }}
         disabled={loading || !isValid || !dirty}
-        onClick={!loading && isValid && dirty? handleOpenModal: undefined}
+        onClick={!loading && isValid && dirty ? handleOpenModal : undefined}
         id="register-submit"
       >
         {loading && <CircularProgress size={20} sx={{ mr: 1 }} />}
@@ -117,7 +120,14 @@ const LowerComponent = memo(({ loading, submitError, isValid, dirty }) => { //us
       <StaticLowerComponent />
       {isModalOpen && (
         <Modal open={true} onClose={handleCloseModal}>
-          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
             <RegisterReCaptcha onFinish={handleCloseModal} />
           </Box>
         </Modal>

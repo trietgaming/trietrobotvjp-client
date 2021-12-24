@@ -6,7 +6,7 @@ import CenteredLoading from "@components/CenteredLoading";
 import { useSnackbar } from "notistack";
 import gerErrorTranslated from "@appFirebase/errorCodeTranslator";
 
-const SocialLogin = () => {
+const CustomLogin = () => {
   const [Component, setComponent] = useState(<CenteredLoading />);
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
@@ -19,6 +19,7 @@ const SocialLogin = () => {
       try {
         const user = await signInWithCustomToken(auth, token);
         if (!user) throw "something went wrong";
+        enqueueSnackbar("Đăng nhập thành công!", { variant: "success" });
       } catch (err) {
         enqueueSnackbar(gerErrorTranslated(err.code), { variant: "error" });
         setComponent((prev) => <Redirect to="/login" />);
@@ -32,4 +33,4 @@ const SocialLogin = () => {
   return Component;
 };
 
-export default SocialLogin;
+export default CustomLogin;

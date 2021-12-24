@@ -2,8 +2,7 @@
   "name": "trietrobotvjp-client",
   "version": "0.1.0",
   "scripts": {
-    "start": "node server.mjs",
-    "deploy": "npm run vitebuild&&railway link 6fa9c32a-119a-4ace-88af-23d4b4135347&&railway up",
+    "deploy": "vite build&&sh deploy.sh",
     "dev": "vite",
     "vitebuild": "vite build",
     "preview": "vite preview"

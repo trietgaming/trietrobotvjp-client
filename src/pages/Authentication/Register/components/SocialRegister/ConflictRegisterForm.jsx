@@ -3,7 +3,7 @@ import * as yup from "yup";
 import ConflictRegisterFormComponent from "./ConflictRegisterFormComponent";
 import { useEffect } from "react";
 import axios from "axios";
-import { signInWithEmailAndPassword, getIdToken } from "@firebase/auth";
+import { signInWithCustomToken } from "@firebase/auth";
 import useAuth from "@customHooks/useAuth";
 import { useSnackbar } from "notistack";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
@@ -37,31 +37,31 @@ const ConflictRegisterForm = ({ payload }) => {
     },
     async onSubmit({ password }, { setStatus }) {
       console.log(password);
+      const expiredIn = payload.exp;
+      if (expiredIn - new Date().getMilliseconds() <= 0)
+        return enqueueSnackbar(getErrorTranslated("jwt/invalid"), {
+          variant: "error",
+        });
       try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          payload.email,
-          password
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/auth/discord/verify`,
+          {
+            jwtToken: payload.rawToken,
+            password,
+          }
         );
-        console.log(userCredential);
-        if (userCredential) {
-          const idToken = await getIdToken(userCredential.user, true);
-          await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/auth/discord/verify`,
-            {
-              jwtToken: payload.rawToken,
-              idToken,
-            }
-          );
-          enqueueSnackbar("Liên kết và đăng nhập thành công!", {
-            variant: "success",
-          });
-        } else {
-          throw new Error("error");
+        const customToken = response.data.token;
+        if (!customToken) throw new Error("Something went wrong");
+        try {
+          await signInWithCustomToken(auth, customToken);
+        } catch (err) {
+          enqueueSnackbar(getErrorTranslated(err.code), { variant: "error" });
         }
       } catch (err) {
-        enqueueSnackbar(getErrorTranslated(err.code), { variant: "error" });
-        console.log(err);
+        enqueueSnackbar(getErrorTranslated(err.response.data.code), {
+          variant: "error",
+        });
+        console.log(err.response);
       }
     },
   };

@@ -32,10 +32,7 @@ const LoginFormComponent = ({
         <Container
           sx={{
             visibility: "visible",
-            px: {
-              xs: 4,
-              sm: 3,
-            },
+            px: 3,
           }}
         >
           <AboveComponent />

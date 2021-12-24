@@ -1,21 +1,14 @@
-import { useCallback, useRef, useEffect } from "react";
+import { useCallback, useRef } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import BasicSettingsComponent from "./BasicSettingsComponent";
 import useUser from "@customHooks/useUser";
-import useFBAccountLink from "@customHooks/useFBAccountLink";
 import useUpdateUserData from "@customHooks/useUpdateUserData";
 import { useSnackbar } from "notistack";
-import getErrorCodeTranslated from "@appFirebase/errorCodeTranslator";
-import useUpdateUser from "@customHooks/useUpdateUser";
-import { getIdToken } from "@firebase/auth";
-import axios from "axios";
 
 const BasicSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
   const currentUser = useUser();
-  const updateUser = useUpdateUser();
-  const linkFBAccount = useFBAccountLink();
   const updateUserData = useUpdateUserData();
   const fileInputRef = useRef();
 
@@ -31,43 +24,6 @@ const BasicSettings = () => {
     ),
     []
   );
-
-  useEffect(() => {
-    getIdToken(currentUser, true).then(async (idToken) => {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/users/account`,
-        {
-          id_token: idToken,
-        }
-      );
-
-      currentUser.account = {
-        discordId: response.data.discord_id,
-        facebookId: response.data.facebook_id,
-        isBalancePublic: response.data.public_balance,
-        isInventoryPublic: response.data.public_inventory,
-        isTradeable: response.data.tradeable,
-      };
-      updateUser(currentUser);
-    });
-  }, []);
-
-  const handleLinkFBAccount = useCallback(async () => {
-    try {
-      await linkFBAccount();
-      enqueueSnackbar("Liên kết tài khoản Facebook thành công!", {
-        variant: "success",
-      });
-      updateUser();
-    } catch (err) {
-      enqueueSnackbar(
-        `Liên kết tài khoản Facebook thất bại: ${getErrorCodeTranslated(
-          err.code
-        )}`,
-        { variant: "error", persist: true }
-      );
-    }
-  }, []);
 
   const handleResetForm = (resetForm, showSnackbar = true) => {
     resetForm();
@@ -114,7 +70,6 @@ const BasicSettings = () => {
         {...{
           currentUser,
           handleResetForm,
-          handleLinkFBAccount,
           FileInputField,
         }}
       />

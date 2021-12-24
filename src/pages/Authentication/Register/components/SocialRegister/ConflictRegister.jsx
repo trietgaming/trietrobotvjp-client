@@ -12,7 +12,7 @@ const ConflictRegister = ({ payload }) => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          my: 6,
+          my: { xs: 3, md: 6 },
           position: "relative",
         }}
       >
@@ -21,11 +21,16 @@ const ConflictRegister = ({ payload }) => {
           sx={{
             left: "50%",
             my: { xs: 0, md: 6 },
-            py: 4,
-            width: { xs: "100%", md: 450 },
+            pb: 2,
+            pt: 4,
+            width: { xs: "100%", sm: 450 },
+            visibility: {
+              xs: "hidden",
+              sm: "visible",
+            },
           }}
         >
-          <Box sx={{ mx: 2 }}>
+          <Box sx={{ mx: 2, visibility: "visible" }}>
             <ConflictRegisterForm payload={payload} />
           </Box>
         </Paper>

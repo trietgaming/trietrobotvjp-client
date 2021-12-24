@@ -27,10 +27,13 @@ const useUpdateUserData = () => {
         );
         await uploadString(
           storageRef,
-          selectedFile.replace(/^data:image\/\w+;base64,/, ""),
+          selectedFile !== "default"
+            ? selectedFile.replace(/^data:image\/\w+;base64,/, "")
+            : "",
           "base64"
         );
-        const photoURL = await getDownloadURL(storageRef);
+        const photoURL =
+          selectedFile !== "default" ? await getDownloadURL(storageRef) : "";
         await updateProfile(currentUser, { photoURL });
       }
     } catch (err) {

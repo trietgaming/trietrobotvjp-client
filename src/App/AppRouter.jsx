@@ -85,7 +85,7 @@ const AppRouter = () => {
       </Switch>
     </Router>
   ) : (
-    <CenteredLoading />
+    <CenteredLoading message="Đang xác thực..." logo={true} />
   );
 };
 

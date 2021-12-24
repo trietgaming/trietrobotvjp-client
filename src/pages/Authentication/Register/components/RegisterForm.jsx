@@ -1,15 +1,12 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import RegisterFormComponent from "./RegisterFormComponent";
-import { signInWithCustomToken } from "@firebase/auth";
-import useAuth from "@customHooks/useAuth";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 import axios from "axios";
 import { useEffect } from "react";
+import { signInWithCustomToken } from "@firebase/auth";
 
 const RegisterForm = () => {
-  const auth = useAuth();
-
   useEffect(() => {
     const handleEnter = (e) => {
       if (e.code !== "Enter") return;
@@ -61,13 +58,14 @@ const RegisterForm = () => {
             displayName: username,
           }
         );
-        if (response && response.data.token){
-          document.getElementById("register-submit").textContent = "Đăng ký thành công, đang đăng nhập..."
+        if (response && response.data.token) {
           await signInWithCustomToken(auth, response.data.token);
         }
       } catch (error) {
         console.log(JSON.stringify(error));
-        setStatus({ error: getErrorTranslated(error.response.data.code) });
+        setStatus({
+          error: getErrorTranslated(error.response?.data.code),
+        });
       }
     },
   };

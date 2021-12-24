@@ -41,18 +41,14 @@ const IDAndEmailFields = memo(() => {
   return (
     <>
       <TextField
-        InputProps={{
-          readOnly: true,
-        }}
+        disabled
         variant="outlined"
         label="ID"
         defaultValue={uid}
         sx={{ width: "100%", mb: 6 }}
       />
       <TextField
-        InputProps={{
-          readOnly: true,
-        }}
+        disabled
         variant="outlined"
         label="Email"
         defaultValue={hiddenEmail}

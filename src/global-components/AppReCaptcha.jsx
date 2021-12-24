@@ -5,7 +5,7 @@ const AppReCaptcha = memo(({ handleCaptchaChange, handleCaptchaExpired }) => {
   return (
     <ReCAPTCHA
       size="normal"
-      theme={localStorage.getItem("isLightMode") === "true" ? "light" : "dark"}
+      theme={localStorage.getItem("isLightMode") === "false" ? "dark" : "light"}
       sitekey={`${import.meta.env.VITE_CAPTCHA_KEY}`}
       onChange={handleCaptchaChange}
       onExpired={handleCaptchaExpired}

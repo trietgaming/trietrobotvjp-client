@@ -29,17 +29,23 @@ const DefaultNavigation = () => {
           sx={{
             justifyContent: "space-between",
             alignItems: "center",
-            padding: { md: "0 1.2em!important", xs: "0 0 0 1em!important" },
+            padding: {
+              md: "0 1.2em!important",
+              xs: "0 0 0 1em!important",
+            },
           }}
         >
           <Hidden lgDown>
             <ApplicationLogo sx={{ flexGrow: 0, display: "flex" }} />
           </Hidden>
-          <CenterNav />
           <Hidden mdDown>
+            <CenterNav />
             <RightNav />
           </Hidden>
-          <MobileNav />
+          <Hidden mdUp>
+            <MobileNav />
+            <RightNav mobile />
+          </Hidden>
         </Toolbar>
       </AppBar>
     </AppBar>

@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Notifications = () => {
   const notificationButtonRef = useRef(null);
@@ -40,16 +41,31 @@ const Notifications = () => {
         }}
         onClose={handleNotificationToggle}
       >
-        <Container sx={{ "&  *": { mt: 1 } }}>
-          <Box sx={{ width: { xs: 250, sm: 350 } }}>
-            <Typography variant="h6">Thông báo</Typography>
+        <Container sx={{ "& .MuiDivider-root": { my: 0.5 }, py: 1 }}>
+          <Box sx={{ width: { xs: "80vw", sm: 350 } }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="h6" sx={{ mt: 0.35 }}>
+                Thông báo
+              </Typography>
+              <IconButton onClick={handleNotificationToggle}>
+                <CloseIcon sx={{ margin: 0 }} />
+              </IconButton>
+            </Box>
             <Divider />
             <Box
-              height={550}
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                height: {
+                  xs: "82vh",
+                  sm: "60vh",
+                },
               }}
             >
               <Box

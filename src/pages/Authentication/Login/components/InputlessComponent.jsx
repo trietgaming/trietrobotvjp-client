@@ -1,7 +1,7 @@
 import SocialButton from "../../shared-components/SocialButton";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import { DiscordIcon } from "../../../../assets/icons";
-import { Link as ReactRouterLink, Redirect } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { memo } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -14,7 +14,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import LoginIcon from "@mui/icons-material/Login";
 import HeaderIcon from "../../shared-components/HeaderIcon";
-import { useDispatch } from "react-redux";
+import { discordColor, facebookColor } from "@assets/styles/colors";
 
 const AboveComponent = memo(() => {
   return (
@@ -32,8 +32,6 @@ const AboveComponent = memo(() => {
 });
 
 const LowerComponent = memo(({ loading, submitError }) => {
-  const dispatch = useDispatch();
-
   const handleFBLogin = () => {};
 
   return (
@@ -75,17 +73,16 @@ const LowerComponent = memo(({ loading, submitError }) => {
         <Chip label="Hoặc" />
       </Divider>
       <SocialButton
-        bgColor="#5865F2"
+        bgColor={discordColor}
         Icon={DiscordIcon}
         textColor="white"
         sx={{ mt: 3 }}
-        component="a"
         href={import.meta.env.VITE_DISCORD_OAUTH2_URL}
       >
         Đăng nhập với Discord
       </SocialButton>
       <SocialButton
-        bgColor="#3360ff"
+        bgColor={facebookColor}
         Icon={FacebookRounded}
         textColor="white"
         sx={{ my: 2 }}

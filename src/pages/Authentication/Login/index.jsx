@@ -2,7 +2,7 @@ import LoginForm from "./components/LoginForm";
 import Container from "@mui/material/Container";
 import SmallNav from "../shared-components/SmallNav";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import SocialLogin from "./components/SocialLogin";
+import CustomLogin from "./components/CustomLogin";
 
 const MainLogin = () => {
   return (
@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <Switch>
       <Route path={`${url}/`} exact component={MainLogin} />
-      <Route path={`${url}/social`} exact component={SocialLogin} />
+      <Route path={`${url}/custom`} exact component={CustomLogin} />
     </Switch>
   );
 };

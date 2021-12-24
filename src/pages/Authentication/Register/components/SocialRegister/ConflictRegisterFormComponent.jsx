@@ -2,6 +2,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useFormikContext } from "formik";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link } from "react-router-dom";
+import HeaderIcon from "../../../shared-components/HeaderIcon";
+import AddLinkIcon from "@mui/icons-material/AddLink";
+import Divider from "@mui/material/Divider";
 
 const InputField = () => {
   const { values, handleChange, handleBlur, touched, errors } =
@@ -23,7 +28,7 @@ const InputField = () => {
 };
 
 const SubmitButton = () => {
-  const { handleSubmit } = useFormikContext();
+  const { handleSubmit, isSubmitting, dirty, isValid } = useFormikContext();
   return (
     <Button
       fullWidth
@@ -31,8 +36,9 @@ const SubmitButton = () => {
       type="submit"
       onClick={handleSubmit}
       id="submit-btn"
+      disabled={isSubmitting || !isValid || !dirty}
     >
-      Liên kết và đăng nhập
+      {isSubmitting ? <CircularProgress /> : "Liên kết và đăng nhập"}
     </Button>
   );
 };
@@ -42,7 +48,8 @@ const ConflictRegisterFormComponent = ({
 }) => {
   return (
     <>
-      <Typography variant="h5" textAlign="center">
+      <HeaderIcon Icon={AddLinkIcon} />
+      <Typography variant="h5" textAlign="center" sx={{ mt: 2 }}>
         Liên kết tài khoản
       </Typography>
       <Typography variant="body2" color="inherit" sx={{ mt: 1, mb: 4 }}>
@@ -67,6 +74,10 @@ const ConflictRegisterFormComponent = ({
       />
       <InputField />
       <SubmitButton />
+      <Divider sx={{ my: 2 }} />
+      <Button component={Link} to="/forgot-password">
+        Quên mật khẩu?
+      </Button>
     </>
   );
 };

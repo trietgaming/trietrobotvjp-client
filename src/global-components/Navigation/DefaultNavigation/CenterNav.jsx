@@ -48,13 +48,7 @@ const CenterNav = () => {
   return (
     <Toolbar sx={{ display: "flex", padding: "0!important" }}>
       <Hidden mdDown>
-        <NavTabs location={location} TabList={tabList} />
-      </Hidden>
-      <Hidden mdUp>
-        <NavTabs
-          location={location}
-          TabList={[tabList.find((tab) => tab.path === location.pathname)]}
-        />
+        <NavTabs TabList={tabList} />
       </Hidden>
     </Toolbar>
   );

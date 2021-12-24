@@ -3,6 +3,7 @@ import svgrPlugin from "vite-plugin-svgr";
 import react from "@vitejs/plugin-react";
 import fs from "fs";
 import eslint from "@rollup/plugin-eslint";
+import { resolve as resolvePath } from "path";
 
 export default defineConfig({
   plugins: [

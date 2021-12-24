@@ -14,11 +14,11 @@ import UserAvatarChanger from "./UserAvatarChanger";
 import { useFormikContext } from "formik";
 
 const BasicSettingsComponent = ({
+  handleResetForm,
   currentUser: {
     photoURL,
     metadata: { createdAt },
   },
-  handleLinkFBAccount,
   FileInputField,
 }) => {
   const {
@@ -29,7 +29,6 @@ const BasicSettingsComponent = ({
     handleBlur,
     handleChange,
     resetForm,
-    handleResetForm,
     isSubmitting,
     dirty,
     isValid,
@@ -93,7 +92,7 @@ const BasicSettingsComponent = ({
             sx={{ width: "100%", mt: 6, mb: 3 }}
           />
         </Container>
-        <SocialLinkingComponent {...{ handleLinkFBAccount }} />
+        <SocialLinkingComponent />
         <Container sx={{ display: "flex", justifyContent: "space-between" }}>
           <Container sx={{ display: "flex" }} disableGutters>
             <JoinedDate {...{ createdAt }} />

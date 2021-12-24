@@ -1,0 +1,15 @@
+{
+  "short_name": "TrietRoBotVjp Client",
+  "name": "Ứng dụng giải trí tiện lợi đa nền tảng mạng xã hội.",
+  "icons": [
+    {
+      "src": "https://trietrobotvjp.com/assets/favicon.a4087a68.svg",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "https://trietrobotvjp.com",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
