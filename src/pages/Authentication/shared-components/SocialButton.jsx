@@ -25,7 +25,9 @@ const SocialButton = ({
     {...rest}
   >
     <Icon sx={{ left: "0.5em", position: "absolute", mb: 0.1 }} />
-    {children}
+    <span style={{ marginRight: "5em", transform: "translateX(2.5em)" }}>
+      {children}
+    </span>
   </Button>
 );
 

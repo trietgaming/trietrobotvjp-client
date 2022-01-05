@@ -6,20 +6,17 @@ const SmallNav = ({ sx }) => {
   return (
     <Toolbar
       sx={{
+        display: "flex",
+        justifyContent: "center",
         position: "relative",
-        mb: 2,
+        my: 2,
         ...sx,
       }}
     >
-      <Button
-        variant="contained"
-        color="info"
-        sx={{ mr: 2 }}
-        to="/"
-        component={Link}
-      >
+      <Button variant="contained" color="info" to="/" component={Link}>
         Trang chủ
       </Button>
+      <div style={{ margin: "0 1em" }}></div>
       <Button
         variant="outlined"
         color="primary"

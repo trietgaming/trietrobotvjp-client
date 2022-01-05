@@ -1,10 +1,28 @@
-import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import PanelHeader from "../PanelHeader";
+import Box from "@mui/material/Box";
+import CurrentUserSetting from "./CurrentUserSetting";
 
 const AdvancedSettings = () => {
   return (
-    <>
-      <Typography variant="h5">CÀI ĐẶT NÂNG CAO</Typography>
-    </>
+    <Paper
+      sx={{
+        visibility: {
+          xs: "hidden",
+          md: "visible",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          visibility: "visible",
+          py: { xs: 2, md: 4 },
+        }}
+      >
+        <PanelHeader>{"CÀI ĐẶT NÂNG CAO"}</PanelHeader>
+        <CurrentUserSetting />
+      </Box>
+    </Paper>
   );
 };
 

@@ -18,38 +18,58 @@ function App() {
   const auth = useAuth();
   const isLightMode = useSelector((state) => state.isLightMode);
   const { enqueueSnackbar } = useSnackbar();
-  console.log(useSelector((state) => state.auth.firebase));
 
   useLayoutEffect(() => {
     (async () => {
-      const error = new URLSearchParams(window.location.search).get("error");
-      if (error)
-        enqueueSnackbar(getErrorTranslated(error), { variant: "error" });
-      const ok = new URLSearchParams(window.location.search).get("ok");
-      if (ok) enqueueSnackbar("Thành công!", { variant: "success" });
-
       auth.onAuthStateChanged(async (user) => {
         console.log(user);
-        if (user)
-          getIdToken(user, true).then(async (idToken) => {
-            const response = await axios.post(
-              `${import.meta.env.VITE_BACKEND_URL}/users/account`,
-              {
-                id_token: idToken,
-              }
-            );
-
-            user.account = {
-              discordId: response.data.discord_id,
-              facebookId: response.data.facebook_id,
-              isBalancePublic: response.data.public_balance,
-              isInventoryPublic: response.data.public_inventory,
-              isTradeable: response.data.tradeable,
-            };
-            updateUser(user);
-          });
+        localStorage.setItem("userLoggedIn", `${Boolean(user)}`);
         updateUser(user);
+
+        if (user && user.emailVerified && !user.account) {
+          console.log("request to server;");
+          const response = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/users/account`,
+            {
+              id_token: await getIdToken(user, true),
+            }
+          );
+
+          user.account = {
+            isBalancePublic: response.data.is_balance_public,
+            isInventoryPublic: response.data.is_inventory_public,
+            isTradeable: response.data.is_tradable,
+            bannerId: response.data.banner_id,
+            wallet: response.data.wallet,
+            bank: response.data.bank,
+            bankLimit: response.data.bank_limit,
+            level: response.data.level,
+            hasPinCode: response.data.has_pin_code,
+          };
+          updateUser(user);
+        }
       });
+
+      if (
+        !localStorage.getItem(
+          `firebase:authUser:${import.meta.env.VITE_FIREBASE_API_KEY}:[DEFAULT]`
+        )
+      )
+        updateUser(null);
+
+      const search = new URLSearchParams(window.location.search);
+      const error = search.get("error");
+      const ok = search.get("ok");
+
+      (error || ok) &&
+        window.history.replaceState(null, null, window.location.pathname);
+
+      if (error)
+        enqueueSnackbar(getErrorTranslated(error), {
+          variant: "error",
+          persist: true,
+        });
+      if (ok) enqueueSnackbar("Thành công!", { variant: "success" });
     })();
   }, []);
 

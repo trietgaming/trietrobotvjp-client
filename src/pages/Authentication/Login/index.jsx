@@ -7,7 +7,7 @@ import CustomLogin from "./components/CustomLogin";
 const MainLogin = () => {
   return (
     <>
-      <SmallNav sx={{ positon: "relative" }} />
+      <SmallNav />
       <Container
         disableGutters
         sx={{

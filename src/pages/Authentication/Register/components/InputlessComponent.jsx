@@ -8,16 +8,14 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import SocialButton from "../../shared-components/SocialButton";
-import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import AssignmentInd from "@mui/icons-material/AssignmentInd";
-import { DiscordIcon } from "../../../../assets/icons";
 import { Link as ReactRouterLink } from "react-router-dom";
 import ReCaptcha from "@components/AppReCaptcha";
 import { useFormikContext } from "formik";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { discordColor, facebookColor } from "@assets/styles/colors";
+import FacebookLoginButton from "../../shared-components/FacebookLoginButton";
+import DiscordLoginButton from "../../shared-components/DiscordLoginButton";
 
 const AboveComponent = memo(() => {
   return (
@@ -52,23 +50,8 @@ const StaticLowerComponent = memo(() => {
       <Divider>
         <Chip label="Hoặc" />
       </Divider>
-      <SocialButton
-        bgColor={discordColor}
-        Icon={DiscordIcon}
-        textColor="white"
-        sx={{ mt: 2 }}
-        href={import.meta.env.VITE_DISCORD_OAUTH2_URL}
-      >
-        Đăng ký bằng Discord
-      </SocialButton>
-      <SocialButton
-        bgColor={facebookColor}
-        Icon={FacebookRounded}
-        textColor="white"
-        sx={{ my: 2 }}
-      >
-        Đăng ký bằng Facebook
-      </SocialButton>
+      <DiscordLoginButton />
+      <FacebookLoginButton actionPagePath={"register"} />
       <Divider></Divider>
       <Typography variant="body1" color="inherit" sx={{ pl: 1, mt: 2, mb: -1 }}>
         Đã có tài khoản?{" "}

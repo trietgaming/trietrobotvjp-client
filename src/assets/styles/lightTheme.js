@@ -16,7 +16,7 @@ export default { //Light theme
     error: {
       main: '#fb0f0f',
     },
-    success: {
+    success: {  
       main: '#009432',
     },
     info: {

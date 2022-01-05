@@ -7,6 +7,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  //eslint-disable-next-line
   devTools: process.env.NODE_ENV !== "production",
 });
 

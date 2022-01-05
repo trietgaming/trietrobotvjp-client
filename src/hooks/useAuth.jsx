@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 
 const useAuth = () => {
-  const getAuth = useSelector((state) => state.auth.firebase.getAuth);
-  return getAuth();
+  return useSelector((state) => state.auth.firebase.getAuth)();
 };
 
 export default useAuth;

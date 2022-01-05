@@ -44,8 +44,9 @@ const SubmitButton = () => {
 };
 
 const ConflictRegisterFormComponent = ({
-  payload: { email, discord_id: discordId },
+  payload: { email, discord_id: discordId, provider, facebook_id: facebookId },
 }) => {
+  const socialMedia = provider === "discord" ? "Discord" : "Facebook";
   return (
     <>
       <HeaderIcon Icon={AddLinkIcon} />
@@ -53,22 +54,22 @@ const ConflictRegisterFormComponent = ({
         Liên kết tài khoản
       </Typography>
       <Typography variant="body2" color="inherit" sx={{ mt: 1, mb: 4 }}>
-        Email gắn với tài khoản Discord này đã tồn tại trong hệ thống. Vui lòng
-        xác nhận quyền sở hữu tài khoản để đăng nhập cũng như liên kết Discord
-        với tài khoản này.
+        Email gắn với tài khoản {socialMedia} này đã tồn tại trong hệ thống. Vui
+        lòng xác nhận quyền sở hữu tài khoản để đăng nhập cũng như liên kết{" "}
+        {socialMedia} với tài khoản này.
       </Typography>
       <TextField
         fullWidth
-        label="ID Discord"
+        label={provider === "discord" ? "Id Discord" : "Id Facebook"}
         type="text"
-        value={discordId}
+        value={discordId || facebookId}
         disabled
       />
       <TextField
         fullWidth
         label="Email"
         type="text"
-        value={email}
+        value={email || email}
         disabled
         sx={{ mt: 3 }}
       />

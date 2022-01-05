@@ -71,8 +71,7 @@ const UserAvatarDisplayer = memo(
         <Button
           disabled={selectedFile === "default" || !photoURL}
           onClick={deleteAvatarFunction}
-          fullWidth
-          sx={{ mb: { xs: 4, md: 0 } }}
+          sx={{ mb: { xs: 4, md: 0 }, display: "flex", mx: "auto" }}
         >
           Xóa ảnh
         </Button>

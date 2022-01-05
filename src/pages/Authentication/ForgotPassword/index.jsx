@@ -7,12 +7,12 @@ import ForgotPasswordForm from "./components/ForgotPasswordForm";
 const ForgotPassword = () => {
   return (
     <>
-      <SmallNav sx={{ positon: "relative" }} />
+      <SmallNav />
       <Container
         sx={{
           display: "flex",
           justifyContent: "center",
-          my: 6,
+          my: 3,
           position: "relative",
         }}
       >

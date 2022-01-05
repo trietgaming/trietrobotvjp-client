@@ -2,6 +2,8 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { LowerComponent, AboveComponent } from "./InputlessComponent";
+import PasswordField from "../../shared-components/PasswordField";
+import { useState } from "react";
 
 const LoginFormComponent = ({
   values,
@@ -13,12 +15,13 @@ const LoginFormComponent = ({
   status: { error: submitError },
   isSubmitting,
 }) => {
+  const [isShowPassword, setShowPassword] = useState(false);
   return (
     <Container
       maxWidth="xs"
       component="form"
       onSubmit={handleSubmit}
-      sx={{ px: { xs: 0, sm: "initial" } }}
+      sx={{ px: { xs: 0.5, sm: "initial" } }}
     >
       <Paper
         elevation={5}
@@ -48,7 +51,7 @@ const LoginFormComponent = ({
             helperText={touched.email && errors.email}
             sx={{ my: 3 }}
           />
-          <TextField
+          <PasswordField
             fullWidth
             name="password"
             label="Mật khẩu"
@@ -58,6 +61,8 @@ const LoginFormComponent = ({
             onBlur={handleBlur}
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
+            showPassword={isShowPassword}
+            onShowAndHide={() => setShowPassword((prev) => !prev)}
           />
           <LowerComponent loading={isSubmitting} submitError={submitError} />
         </Container>

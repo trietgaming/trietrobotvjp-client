@@ -13,10 +13,8 @@ import {
 } from "@assets/icons";
 //Components
 import NavTabs from "../components/NavTabs";
-import { useLocation } from "react-router";
 
 const CenterNav = () => {
-  const location = useLocation();
 
   const tabList = [
     {

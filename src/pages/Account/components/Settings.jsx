@@ -1,5 +1,4 @@
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import NavTabs from "@components/Navigation/components/NavTabs";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -14,9 +13,9 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AreYouSure from "@components/AreYouSure";
 
-const Settings = ({ currentTabValue, handleTabChange }) => {
+const Settings = () => {
   const isWideWidth = useMediaQuery((theme) => theme.breakpoints.up("lg"));
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(isWideWidth);
 
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
@@ -79,19 +78,25 @@ const Settings = ({ currentTabValue, handleTabChange }) => {
             variant="h6"
             color="inherit"
             align="center"
+            fontWeight="bold"
             sx={{ mt: 4, mb: 2 }}
           >
             TÀI KHOẢN
           </Typography>
-          <Tabs
-            value={currentTabValue}
-            onChange={handleTabChange}
+          <NavTabs
+            TabList={[
+              { path: "/account", label: "CÀI ĐẶT CƠ BẢN", exact: true },
+              { path: "/account/advanced", label: "CÀI ĐẶT NÂNG CAO" },
+            ]}
             orientation="vertical"
-            sx={{ width: "100%", "& > *": { width: "100%" } }}
-          >
-            <Tab label="CÀI ĐẶT CƠ BẢN" index={0} />
-            <Tab label="CÀI ĐẶT NÂNG CAO" />
-          </Tabs>
+            sx={{
+              width: "100%",
+              "& > *": { width: "100%" },
+              "& .MuiTab-root": {
+                height: "60px!important",
+              },
+            }}
+          />
           <Divider sx={{ my: 3 }} />
           <Button
             variant="contained"

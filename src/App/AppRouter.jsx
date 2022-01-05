@@ -28,12 +28,15 @@ const RedirectToHomePage = () => <Redirect to="/" />;
 
 const AppRoute = ({ path, component, exact, withoutNav }) => {
   const Component = component;
+
   return (
     <Route path={path} exact={exact}>
-      {!withoutNav && <Navigation />}
-      <Suspense fallback={<CenteredLoading />}>
-        <Component />
-      </Suspense>
+      <>
+        {!withoutNav && <Navigation />}
+        <Suspense fallback={<CenteredLoading />}>
+          <Component />
+        </Suspense>
+      </>
     </Route>
   );
 };
@@ -53,12 +56,12 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <AppRoute
-          path="/login"
+          path={["/login", "/signin"]}
           component={isAuthenticated ? RedirectToHomePage : Login}
           withoutNav
         />
         <AppRoute
-          path="/register"
+          path={["/register", "/signup"]}
           component={isAuthenticated ? RedirectToHomePage : Register}
           withoutNav
         />

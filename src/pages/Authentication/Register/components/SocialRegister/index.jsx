@@ -16,6 +16,10 @@ const SocialRegister = () => {
     const search = location.search;
     const token = new URLSearchParams(search).get("token");
 
+    if (!token) {
+      setComponent(() => <Redirect to="/login" />);
+    }
+
     try {
       const response = await axios.post(
         import.meta.env.VITE_BACKEND_URL + "/auth/discord/verify",
@@ -31,11 +35,10 @@ const SocialRegister = () => {
               code: "jwt/invalid",
             });
           })();
-      payload.conflict
-        ? setComponent((prev) => <ConflictRegister payload={payload} />)
-        : setComponent((prev) => <div>vai</div>);
+      if (!payload.conflict) throw "unexpected";
+      setComponent(() => <ConflictRegister payload={payload} />);
     } catch (err) {
-      setComponent((prev) => <Redirect to="/login" />);
+      setComponent(() => <Redirect to="/login" />);
       enqueueSnackbar(getErrorTranslated(err.response?.data?.code), {
         variant: "error",
       });

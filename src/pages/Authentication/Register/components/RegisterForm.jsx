@@ -5,8 +5,10 @@ import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 import axios from "axios";
 import { useEffect } from "react";
 import { signInWithCustomToken } from "@firebase/auth";
+import useAuth from "@customHooks/useAuth";
 
 const RegisterForm = () => {
+  const auth = useAuth();
   useEffect(() => {
     const handleEnter = (e) => {
       if (e.code !== "Enter") return;
@@ -58,7 +60,8 @@ const RegisterForm = () => {
             displayName: username,
           }
         );
-        if (response && response.data.token) {
+        console.log(response)
+        if (response && response.data.ok && response.data.token) {
           await signInWithCustomToken(auth, response.data.token);
         }
       } catch (error) {

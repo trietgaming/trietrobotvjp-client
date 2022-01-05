@@ -1,4 +1,3 @@
-import { useLocation } from "react-router";
 import Toolbar from "@mui/material/Toolbar";
 import Hidden from "@mui/material/Hidden";
 //Icons Imports
@@ -20,8 +19,6 @@ import {
 import NavTabs from "../components/NavTabs";
 
 const CenterNav = () => {
-  const location = useLocation();
-
   const tabList = [
     {
       path: "/",
@@ -64,11 +61,10 @@ const CenterNav = () => {
   return (
     <Toolbar sx={{ display: "flex", padding: "0!important" }}>
       <Hidden mdDown>
-        <NavTabs location={location} TabList={tabList} />
+        <NavTabs TabList={tabList} />
       </Hidden>
       <Hidden mdUp>
         <NavTabs
-          location={location}
           TabList={[tabList.find((tab) => tab.path === location.pathname)]}
         />
       </Hidden>

@@ -2,16 +2,12 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import {
-  JoinedDate,
-  SocialLinkingComponent,
-  PanelHeader,
-} from "./InputlessComponent";
+import { SocialLinkingComponent } from "./InputlessComponent";
 import IDAndEmailFields from "./IDAndEmailFields";
 import UserAvatarChanger from "./UserAvatarChanger";
 import { useFormikContext } from "formik";
+import PanelHeader from "../PanelHeader";
+import ActionButton from "../ActionButton";
 
 const BasicSettingsComponent = ({
   handleResetForm,
@@ -22,14 +18,12 @@ const BasicSettingsComponent = ({
   FileInputField,
 }) => {
   const {
-    handleSubmit,
     values,
     touched,
     errors,
     handleBlur,
     handleChange,
     resetForm,
-    isSubmitting,
     dirty,
     isValid,
     setFieldValue,
@@ -49,9 +43,10 @@ const BasicSettingsComponent = ({
       <Box
         sx={{
           visibility: "visible",
+          py: { xs: 2, md: 4 },
         }}
       >
-        <PanelHeader />
+        <PanelHeader>{"CÀI ĐẶT CƠ BẢN"}</PanelHeader>
         <Container
           sx={{
             display: { xs: "block", md: "flex" },
@@ -93,33 +88,10 @@ const BasicSettingsComponent = ({
           />
         </Container>
         <SocialLinkingComponent />
-        <Container sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Container sx={{ display: "flex" }} disableGutters>
-            <JoinedDate {...{ createdAt }} />
-          </Container>
-          <Container
-            disableGutters
-            sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <Button
-              sx={{ mt: 3, mb: 4, mr: 2 }}
-              onClick={() => handleResetForm(resetForm)}
-              disabled={isSubmitting || !dirty}
-            >
-              Hủy
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              color="info"
-              sx={{ mt: 3, mb: 4 }}
-              disabled={isSubmitting || !dirty || !isValid}
-            >
-              {isSubmitting && <CircularProgress size={20} sx={{ mr: 1 }} />}
-              Lưu
-            </Button>
-          </Container>
-        </Container>
+        <ActionButton
+          joinedDate={createdAt}
+          customReset={() => handleResetForm(resetForm)}
+        />
       </Box>
     </Paper>
   );

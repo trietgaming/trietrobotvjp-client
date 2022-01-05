@@ -14,6 +14,7 @@ const authErrors = {
   "jwt/invalid":
     "Phiên xác thực đã hết hạn hoặc không hợp lệ. Vui lòng thử lại sau",
   "auth/invalid-custom-token": "Mã xác thực không hợp lệ!",
+  "auth/user-cancelled": "Bạn đã hủy đăng ký",
 };
 
 export default (errCode) => {

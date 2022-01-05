@@ -1,39 +1,30 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useUser from "@customHooks/useUser";
-import { memo, useState } from "react";
+import { memo, useState, useMemo } from "react";
 import useVerifyEmail from "@customHooks/useVerifyEmail";
-import { useSnackbar } from "notistack";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const IDAndEmailFields = memo(() => {
   const { uid, email, emailVerified } = useUser();
   const [isSending, setSending] = useState(false); //isSending also like isSent
-  const { enqueueSnackbar } = useSnackbar();
-  const sendVerificationEmail = useVerifyEmail();
+  const [isShowEmail, setShowEmail] = useState(false);
+  const { sendable, sendVerificationEmail } = useVerifyEmail();
 
-  const hiddenEmail = email.replace(
-    /(?<=^[A-Za-z0-9]{2}).*?(?=@)/g,
-    "••••••••"
+  const hiddenEmail = useMemo(
+    () => email?.replace(/(?<=^[A-Za-z0-9]{2}).*?(?=@)/g, "••••••••"),
+    [email]
   );
 
   const handleSendVerificationEmail = async () => {
     setSending(true);
     try {
       await sendVerificationEmail();
-      enqueueSnackbar(
-        `Đã gửi thư xác nhận đến ${hiddenEmail}. Nếu không tìm thấy, hãy kiểm tra mục thư rác.`,
-        {
-          variant: "info",
-          persist: true,
-        }
-      );
-    } catch (err) {
+    } catch {
       setSending(false);
-      enqueueSnackbar(`Đã có lỗi xảy ra: ${getErrorTranslated(err.code)}`, {
-        variant: "error",
-        persist: true,
-      });
     }
   };
 
@@ -51,16 +42,25 @@ const IDAndEmailFields = memo(() => {
         disabled
         variant="outlined"
         label="Email"
-        defaultValue={hiddenEmail}
+        value={isShowEmail ? email : hiddenEmail}
         sx={{ width: "100%" }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={() => setShowEmail((prev) => !prev)}>
+                {isShowEmail ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         helperText={
           !emailVerified && (
             <Button
               sx={{ position: "absolute", right: 0 }}
               onClick={isSending ? undefined : handleSendVerificationEmail}
-              disabled={isSending}
+              disabled={isSending || !sendable}
             >
-              Xác thực email
+              {sendable ? "Xác thực email" : "Kiểm tra email của bạn"}
             </Button>
           )
         }

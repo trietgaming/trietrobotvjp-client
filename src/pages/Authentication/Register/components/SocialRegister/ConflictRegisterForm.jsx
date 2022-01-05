@@ -3,14 +3,15 @@ import * as yup from "yup";
 import ConflictRegisterFormComponent from "./ConflictRegisterFormComponent";
 import { useEffect } from "react";
 import axios from "axios";
-import { signInWithCustomToken } from "@firebase/auth";
+import {
+  signInWithCustomToken,
+} from "@firebase/auth";
 import useAuth from "@customHooks/useAuth";
-import { useSnackbar } from "notistack";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
 
 const ConflictRegisterForm = ({ payload }) => {
   const auth = useAuth();
-  const { enqueueSnackbar } = useSnackbar();
+  const enqueueSnackbar = useEnqueueSnackbar();
 
   useEffect(() => {
     const handleEnter = (e) => {
@@ -35,16 +36,14 @@ const ConflictRegisterForm = ({ payload }) => {
     initialStatus: {
       error: "",
     },
-    async onSubmit({ password }, { setStatus }) {
+    onSubmit: async ({ password }) => {
       console.log(password);
       const expiredIn = payload.exp;
       if (expiredIn - new Date().getMilliseconds() <= 0)
-        return enqueueSnackbar(getErrorTranslated("jwt/invalid"), {
-          variant: "error",
-        });
+        return enqueueSnackbar({ errCode: "jwt/invalid" });
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/auth/discord/verify`,
+          `${import.meta.env.VITE_BACKEND_URL}/auth/${payload.provider}/verify`,
           {
             jwtToken: payload.rawToken,
             password,
@@ -54,13 +53,15 @@ const ConflictRegisterForm = ({ payload }) => {
         if (!customToken) throw new Error("Something went wrong");
         try {
           await signInWithCustomToken(auth, customToken);
+          enqueueSnackbar({
+            message: "Liên kết thành công!",
+            variant: "success",
+          });
         } catch (err) {
-          enqueueSnackbar(getErrorTranslated(err.code), { variant: "error" });
+          return enqueueSnackbar({ errCode: err.code });
         }
       } catch (err) {
-        enqueueSnackbar(getErrorTranslated(err.response.data.code), {
-          variant: "error",
-        });
+        enqueueSnackbar({ errCode: err.response.data.code });
         console.log(err.response);
       }
     },

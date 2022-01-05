@@ -2,7 +2,8 @@ import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { AboveComponent, LowerComponent } from "./InputlessComponent";
-import Box from "@mui/material/Box";
+import { useState } from "react";
+import PasswordField from "../../shared-components/PasswordField";
 
 const RegisterFormComponent = ({
   values,
@@ -15,18 +16,19 @@ const RegisterFormComponent = ({
   isValid,
   dirty,
 }) => {
+  const [isShowPassword, setShowPassword] = useState(false);
+
   return (
     <Container maxWidth="sm" sx={{ px: { xs: 0, sm: "initial" } }}>
       <Paper
         elevation={5}
         sx={{
-          borderRadius: 2,
+          borderRadius: 6,
           py: 5,
           visibility: { xs: "hidden", sm: "visible" },
         }}
-        square
       >
-        <Container sx={{ visibility: "visible", px: 4 }}>
+        <Container sx={{ visibility: "visible", px: 3 }}>
           <AboveComponent />
           <TextField
             fullWidth
@@ -52,7 +54,7 @@ const RegisterFormComponent = ({
             helperText={touched.email && errors.email}
             sx={{ mb: 2 }}
           />
-          <TextField
+          <PasswordField
             fullWidth
             name="password"
             label="Mật khẩu"
@@ -63,8 +65,10 @@ const RegisterFormComponent = ({
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
             sx={{ mb: 2 }}
+            showPassword={isShowPassword}
+            onShowAndHide={() => setShowPassword((prev) => !prev)}
           />
-          <TextField
+          <PasswordField
             fullWidth
             name="passwordConfirmation"
             label="Nhập lại mật khẩu"
@@ -79,6 +83,8 @@ const RegisterFormComponent = ({
             helperText={
               touched.passwordConfirmation && errors.passwordConfirmation
             }
+            showPassword={isShowPassword}
+            onShowAndHide={() => setShowPassword((prev) => !prev)}
           />
           <LowerComponent
             {...{ loading: isSubmitting, submitError, isValid, dirty }}

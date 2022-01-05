@@ -4,16 +4,16 @@ import Tooltip from "@mui/material/Tooltip";
 import Tabs from "@mui/material/Tabs";
 import { useLocation } from "react-router";
 
-const NavTabs = ({ TabList }) => {
+const NavTabs = ({ TabList, ...props }) => {
   const location = useLocation();
 
   return (
     <Tabs
       value={
-        TabList.some((tab) => tab?.path === location.pathname)
-          ? location.pathname
-          : false
+        TabList.some((tab) => tab?.path === location.pathname) &&
+        location.pathname
       }
+      {...props}
     >
       {TabList.map((tab, index) => {
         return (
@@ -23,7 +23,10 @@ const NavTabs = ({ TabList }) => {
               to={tab?.path}
               value={
                 //still correct with location '/x/y/z' and tab path is '/x' (except homepage '/')
-                location.pathname.startsWith(tab?.path) && tab?.path !== "/"
+                (tab?.exact
+                  ? location.pathname === tab?.path
+                  : location.pathname.startsWith(tab?.path)) &&
+                tab?.path !== "/"
                   ? location.pathname
                   : tab?.path
               }
@@ -34,19 +37,23 @@ const NavTabs = ({ TabList }) => {
                   : tab?.idleIcon
               }
               label={
-                <Tooltip
-                  title={tab?.title}
-                  leaveDelay={200}
-                  enterTouchDelay={0}
-                >
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      position: "absolute",
-                    }}
-                  ></div>
-                </Tooltip>
+                tab?.title ? (
+                  <Tooltip
+                    title={tab?.title}
+                    leaveDelay={200}
+                    enterTouchDelay={0}
+                  >
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "absolute",
+                      }}
+                    ></div>
+                  </Tooltip>
+                ) : (
+                  tab?.label
+                )
               }
             />
           )
