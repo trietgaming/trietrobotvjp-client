@@ -6,7 +6,7 @@ const Account = () => {
   return (
     <Container
       maxWidth={false}
-      sx={{ display: "flex", height: "100%" }}
+      sx={{ display: "flex", height: "100%", justifyContent: "flex-end" }}
       disableGutters
     >
       <Settings />

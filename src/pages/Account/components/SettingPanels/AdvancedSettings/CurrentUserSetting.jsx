@@ -5,9 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const UnVerifiedAccountSetting = lazy(() =>
   import("./UnVerifiedAccountSetting")
 );
-const VerifiedAccountSettingForm = lazy(() =>
-  import("./VerifiedAccountSettingForm")
-);
+const VerifiedAccountSetting = lazy(() => import("./VerifiedAccountSetting"));
 
 export default () => {
   const user = useUser();
@@ -15,7 +13,7 @@ export default () => {
   return (
     <Suspense fallback={<CircularProgress />}>
       {user.emailVerified ? (
-        <VerifiedAccountSettingForm />
+        <VerifiedAccountSetting />
       ) : (
         <UnVerifiedAccountSetting />
       )}

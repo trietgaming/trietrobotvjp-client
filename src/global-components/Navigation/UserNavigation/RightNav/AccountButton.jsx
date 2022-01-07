@@ -19,7 +19,7 @@ const AccountButton = () => {
   return (
     <>
       <Button
-        color="secondary"
+        color="contrast"
         startIcon={
           <Avatar
             src={currentUser.photoURL || defaultAvatar}

@@ -1,35 +1,42 @@
-export default { //Dark theme
+export default {
+  //Dark theme
   palette: {
     mode: "dark",
     primary: {
       main: "#00acff",
     },
     secondary: {
-      main: "#ffffff",
+      main: "#1C6DD0",
     },
     success: {
       main: "#3df991",
     },
     background: {
-      default: "#202326",
-      paper: "#212529",
+      default: "#18191a",
+      paper: "#191a1c",
     },
     dark: {
       main: "#212529",
     },
     info: {
-      main: "#007bff",
+      main: "#57dbff",
     },
     error: {
-      main: "#F90B31",
+      main: "#ff0a33",
+    },
+    contrast: {
+      main: "#ffffff",
     },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         colorInherit: {
-          backgroundColor: "#212529",
+          backgroundColor: "#18191a",
           color: "#fff",
+        },
+        root: {
+          boxShadow: "none",
         },
       },
       defaultProps: {
@@ -41,6 +48,8 @@ export default { //Dark theme
         root: {
           backgroundImage:
             "linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01))",
+          borderRadius: "12px",
+          boxShadow: "0px 0px 14px 0px rgba(0,0,0,0.25)",
         },
       },
     },

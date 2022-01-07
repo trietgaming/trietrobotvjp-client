@@ -23,7 +23,6 @@ const RegisterFormComponent = ({
       <Paper
         elevation={5}
         sx={{
-          borderRadius: 6,
           py: 5,
           visibility: { xs: "hidden", sm: "visible" },
         }}

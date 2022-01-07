@@ -2,8 +2,8 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { switchThemeMode } from "@assets/styles/themeSlice";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import BedtimeIcon from "@mui/icons-material/Bedtime";
 
 const ChangeThemeModeButton = ({ hasContent, ...rest }) => {
   const dispatch = useDispatch();
@@ -13,13 +13,15 @@ const ChangeThemeModeButton = ({ hasContent, ...rest }) => {
     dispatch(switchThemeMode());
   };
 
-  const DisplayIcon = isLightMode ? Brightness4Icon : Brightness7Icon;
+  const DisplayIcon = isLightMode
+    ? () => <BedtimeIcon sx={{ color: "black" }} />
+    : Brightness7Icon;
 
   return hasContent ? (
     <Button
       startIcon={<DisplayIcon />}
       variant="outlined"
-      color="secondary"
+      color="contrast"
       onClick={handleChangeThemeMode}
       {...rest}
     >
@@ -27,7 +29,7 @@ const ChangeThemeModeButton = ({ hasContent, ...rest }) => {
     </Button>
   ) : (
     <IconButton
-      color="secondary"
+      color="contrast"
       variant="text"
       onClick={handleChangeThemeMode}
       {...rest}

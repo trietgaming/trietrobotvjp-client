@@ -9,7 +9,7 @@ export default memo(({ children }) => {
       align="center"
       color="inherit"
       fontWeight="bold"
-      sx={{ mb: 6, pt: 4 }}
+      sx={{ mb: { xs: 4, md: 6 }, py: 4 }}
     >
       {children}
     </Typography>

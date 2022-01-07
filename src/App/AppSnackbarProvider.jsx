@@ -1,14 +1,15 @@
-import { createRef } from "react";
+import { useRef } from "react";
 import { SnackbarProvider } from "notistack";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const notistackRef = createRef();
-const onClickDismiss = (key) => () => {
-  notistackRef.current.closeSnackbar(key);
-};
-
 const AppSnackbarProvider = ({ children }) => {
+
+  const notistackRef = useRef();
+  const onClickDismiss = (key) => () => {
+    notistackRef.current.closeSnackbar(key);
+  };
+
   return (
     <SnackbarProvider
       ref={notistackRef}

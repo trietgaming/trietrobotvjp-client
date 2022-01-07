@@ -57,7 +57,8 @@ const AccountMenu = ({
             },
             "& .MuiMenuItem-root": {
               height: 50,
-              width: 250,
+              width: 280,
+              borderRadius: "15px",
             },
           },
         }}
@@ -76,7 +77,7 @@ const AccountMenu = ({
         </MenuItem>
         <MenuItem onClick={handleAccountMenuClose}>
           <ListItemIcon>
-            <Help />
+            <Help sx={{ color: "info.main" }} />
           </ListItemIcon>
           Hỗ trợ
         </MenuItem>
@@ -86,7 +87,7 @@ const AccountMenu = ({
           component={Link}
         >
           <ListItemIcon>
-            <FlagIcon />
+            <FlagIcon sx={{ color: "secondary.main" }} />
           </ListItemIcon>
           Tố cáo
         </MenuItem>
@@ -96,7 +97,7 @@ const AccountMenu = ({
           component={Link}
         >
           <ListItemIcon>
-            <AnnouncementIcon />
+            <AnnouncementIcon sx={{ color: "warning.main" }} />
           </ListItemIcon>
           Báo lỗi
         </MenuItem>
@@ -105,7 +106,7 @@ const AccountMenu = ({
         <Divider />
         <MenuItem onClick={handleToggleLogoutModal}>
           <ListItemIcon>
-            <Logout />
+            <Logout sx={{ color: "error.main" }} />
           </ListItemIcon>
           Đăng xuất
         </MenuItem>

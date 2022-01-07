@@ -9,6 +9,7 @@ import useUser from "@customHooks/useUser";
 import { getIdToken, unlink } from "@firebase/auth";
 import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
 import { useState, useMemo } from "react";
+import Paper from "@mui/material/Paper";
 
 const SocialLinkingComponent = memo(() => {
   const user = useUser();
@@ -89,7 +90,7 @@ const SocialLinkingComponent = memo(() => {
   };
 
   return (
-    <>
+    <Paper>
       <Container>
         <Divider />
         <SocialButton
@@ -108,8 +109,6 @@ const SocialLinkingComponent = memo(() => {
               : "Xác nhận hủy liên kết?"
             : "Liên kết Discord"}
         </SocialButton>
-      </Container>
-      <Container>
         <SocialButton
           bgColor="#3360ff"
           Icon={FacebookRounded}
@@ -125,7 +124,7 @@ const SocialLinkingComponent = memo(() => {
             : "Liên kết Facebook"}
         </SocialButton>
       </Container>
-    </>
+    </Paper>
   );
 });
 

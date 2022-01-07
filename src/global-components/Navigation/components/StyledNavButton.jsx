@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 const StyledNavButton = ({
   to = "/",
   variant = "text",
-  color = "secondary",
+  color = "contrast",
   children,
   ...rest
 }) => {
@@ -22,4 +22,4 @@ const StyledNavButton = ({
   );
 };
 
-export default StyledNavButton
+export default StyledNavButton;

@@ -12,7 +12,7 @@ const AreYouSure = ({
   content: { title, body, buttonLabel },
 }) => {
   return (
-    <Dialog open={isOpen} onClose={handleClose} sx={{ zIndex: 999999 }}>
+    <Dialog open={!!isOpen} onClose={handleClose} sx={{ zIndex: 999999 }}>
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -21,7 +21,15 @@ const AreYouSure = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Hủy</Button>
-        <Button color="info" variant="contained" onClick={action} autoFocus>
+        <Button
+          color="info"
+          variant="contained"
+          onClick={() => {
+            action();
+            handleClose();
+          }}
+          autoFocus
+        >
           {buttonLabel}
         </Button>
       </DialogActions>

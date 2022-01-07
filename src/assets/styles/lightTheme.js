@@ -1,39 +1,54 @@
-export default { //Light theme
+export default {
+  //Light theme
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#0541f5',
+      main: "#0541f5",
     },
     secondary: {
-      main: '#212529',
+      main: "#005691",
     },
     background: {
-      default: '#fafafa',
+      default: "rgb(247, 249, 252)",
     },
     text: {
-      primary: '#000000',
+      primary: "#000000",
     },
     error: {
-      main: '#fb0f0f',
+      main: "#fb0f0f",
     },
-    success: {  
-      main: '#009432',
+    success: {
+      main: "#007944",
     },
     info: {
       main: "#007bff",
     },
-    divider: 'rgba(0,0,0,0.17)',
+    contrast: {
+      main: "#050505",
+    },
+    divider: "rgba(0,0,0,0.17)",
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         colorInherit: {
-          backgroundColor: '#ffffff',
-          color: '#000000',
+          backgroundColor: "#fff",
+          color: "#000000",
+        },
+        root: {
+          boxShadow: "none",
         },
       },
       defaultProps: {
         color: "inherit",
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: "0px 0px 14px 0px rgba(0,0,0,0.25)",
+          borderRadius: "12px",
+        },
       },
     },
   },

@@ -9,15 +9,14 @@ import useUpdateUser from "@customHooks/useUpdateUser";
 import useAuth from "@customHooks/useAuth";
 import { getIdToken } from "@firebase/auth";
 import axios from "axios";
-import { useSnackbar } from "notistack";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
 
 function App() {
   console.log("rerender App");
   const updateUser = useUpdateUser();
   const auth = useAuth();
   const isLightMode = useSelector((state) => state.isLightMode);
-  const { enqueueSnackbar } = useSnackbar();
+  const enqueueSnackbar = useEnqueueSnackbar();
 
   useLayoutEffect(() => {
     (async () => {
@@ -29,23 +28,11 @@ function App() {
         if (user && user.emailVerified && !user.account) {
           console.log("request to server;");
           const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/users/account`,
-            {
-              id_token: await getIdToken(user, true),
-            }
+            `${import.meta.env.VITE_BACKEND_URL}/users/${user.uid}/account`,
+            null,
+            { headers: { authorization: await getIdToken(user, true) } }
           );
-
-          user.account = {
-            isBalancePublic: response.data.is_balance_public,
-            isInventoryPublic: response.data.is_inventory_public,
-            isTradeable: response.data.is_tradable,
-            bannerId: response.data.banner_id,
-            wallet: response.data.wallet,
-            bank: response.data.bank,
-            bankLimit: response.data.bank_limit,
-            level: response.data.level,
-            hasPinCode: response.data.has_pin_code,
-          };
+          user.account = response.data;
           updateUser(user);
         }
       });
@@ -65,11 +52,31 @@ function App() {
         window.history.replaceState(null, null, window.location.pathname);
 
       if (error)
-        enqueueSnackbar(getErrorTranslated(error), {
-          variant: "error",
+        enqueueSnackbar({
+          errCode: error,
           persist: true,
         });
-      if (ok) enqueueSnackbar("Thành công!", { variant: "success" });
+      if (ok) enqueueSnackbar({ message: "Thành công!", variant: "success" });
+
+      axios.interceptors.request.use(
+        async (config) => {
+          // Do something before request is sent
+          config.headers.authorization = await getIdToken(
+            auth.currentUser,
+            true
+          );
+
+          return config;
+        },
+        function (error) {
+          // Do something with request error
+
+          enqueueSnackbar({
+            errCode: error?.response?.data?.code,
+            persist: true,
+          });
+        }
+      );
     })();
   }, []);
 

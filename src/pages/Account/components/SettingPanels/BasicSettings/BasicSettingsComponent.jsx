@@ -40,14 +40,14 @@ const BasicSettingsComponent = ({
         },
       }}
     >
-      <Box
+      <Container
         sx={{
           visibility: "visible",
           py: { xs: 2, md: 4 },
         }}
       >
         <PanelHeader>{"CÀI ĐẶT CƠ BẢN"}</PanelHeader>
-        <Container
+        <Box
           sx={{
             display: { xs: "block", md: "flex" },
             justifyContent: "flex-start",
@@ -72,8 +72,8 @@ const BasicSettingsComponent = ({
           >
             <IDAndEmailFields />
           </Box>
-        </Container>
-        <Container>
+        </Box>
+        <Box>
           <TextField
             variant="filled"
             label="Tên người dùng"
@@ -86,13 +86,13 @@ const BasicSettingsComponent = ({
             helperText={touched.username && errors.username}
             sx={{ width: "100%", mt: 6, mb: 3 }}
           />
-        </Container>
+        </Box>
         <SocialLinkingComponent />
         <ActionButton
           joinedDate={createdAt}
           customReset={() => handleResetForm(resetForm)}
         />
-      </Box>
+      </Container>
     </Paper>
   );
 };

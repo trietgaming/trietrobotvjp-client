@@ -6,76 +6,91 @@ import CreateIcon from "@mui/icons-material/Create";
 import Button from "@mui/material/Button";
 import { memo } from "react";
 import { useSnackbar } from "notistack";
+import Paper from "@mui/material/Paper";
 
 const UserAvatarDisplayer = memo(
   ({ photoURL, selectedFile, deleteAvatarFunction }) => {
     console.log("USERAVASASDLASLDASPDLASPASD");
     return (
-      <>
-        <Box
-          sx={{
-            position: "relative",
-            "&:hover": { opacity: "0.7" },
-            "&:hover .MuiSvgIcon-root": { opacity: "1" },
-            transition: ".15s ease-in-out",
-            width: {
-              xs: 128,
-              md: "auto",
-            },
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          <label htmlFor="avatar-upload">
-            <Avatar
-              alt="Avatar"
-              src={
-                selectedFile !== "default"
-                  ? selectedFile || photoURL || defaultAvatar
-                  : defaultAvatar
-              }
-              sx={{
-                width: 128,
-                height: 128,
-                mb: 2.5,
-              }}
-            />
-            <Box
-              sx={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                cursor: "pointer",
-              }}
-            >
-              <CreateIcon
+      <Paper
+        sx={{
+          visibility: {
+            md: "hidden",
+            xs: "visible",
+          },
+        }}
+      >
+        <Box sx={{ visibility: "visible", pt: { xs: 5, md: 0 } }}>
+          <Box
+            sx={{
+              position: "relative",
+              "&:hover": { opacity: "0.7" },
+              "&:hover .MuiSvgIcon-root": { opacity: "1" },
+              transition: ".15s ease-in-out",
+              width: {
+                xs: 128,
+                md: "auto",
+              },
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <label htmlFor="avatar-upload">
+              <Avatar
+                alt="Avatar"
+                src={
+                  selectedFile !== "default"
+                    ? selectedFile || photoURL || defaultAvatar
+                    : defaultAvatar
+                }
                 sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 32,
-                  height: 32,
-                  opacity: "0",
-                  transition: ".15s ease-in-out",
-                  color: "white",
+                  width: 128,
+                  height: 128,
+                  mb: 2.5,
                 }}
               />
-            </Box>
-          </label>
+              <Box
+                sx={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  cursor: "pointer",
+                }}
+              >
+                <CreateIcon
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 32,
+                    height: 32,
+                    opacity: "0",
+                    transition: ".15s ease-in-out",
+                    color: "white",
+                  }}
+                />
+              </Box>
+            </label>
+          </Box>
+          <Box sx={{ pb: { xs: 4, md: 0 }, mb: { xs: 5, md: 0 } }}>
+            <Button
+              disabled={selectedFile === "default" || !photoURL}
+              onClick={deleteAvatarFunction}
+              sx={{
+                display: "flex",
+                mx: "auto",
+              }}
+            >
+              Xóa ảnh
+            </Button>
+          </Box>
         </Box>
-        <Button
-          disabled={selectedFile === "default" || !photoURL}
-          onClick={deleteAvatarFunction}
-          sx={{ mb: { xs: 4, md: 0 }, display: "flex", mx: "auto" }}
-        >
-          Xóa ảnh
-        </Button>
-      </>
+      </Paper>
     );
   }
 );

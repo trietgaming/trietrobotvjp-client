@@ -12,7 +12,8 @@ export default () => {
       persist = false,
     }) =>
       enqueueSnackbar(
-        message + (errCode ? " " + getErrorCodeTranslated(errCode) : ""),
+        message +
+          (errCode ? " " + getErrorCodeTranslated(errCode) : ""),
         { variant, persist }
       ),
     []
