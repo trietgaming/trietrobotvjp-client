@@ -1,5 +1,5 @@
 import { sendPasswordResetEmail } from "@firebase/auth";
-import useAuth from "@customHooks/useAuth";
+import useAuth from "@appHooks/useAuth";
 import { useSnackbar } from "notistack";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 import * as yup from "yup";

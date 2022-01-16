@@ -1,4 +1,4 @@
-import { signOut } from "firebase/auth";
+import { signOut } from "@firebase/auth";
 import useAuth from "./useAuth";
 import { useSnackbar } from "notistack";
 import { useCallback } from "react";

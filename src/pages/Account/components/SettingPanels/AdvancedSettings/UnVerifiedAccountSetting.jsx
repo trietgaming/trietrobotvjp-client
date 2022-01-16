@@ -1,9 +1,12 @@
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import useVerifyEmail from "@customHooks/useVerifyEmail";
+import useVerifyEmail from "@appHooks/useVerifyEmail";
 import { useState } from "react";
+import Hidden from "@mui/material/Hidden";
+import IconButton from "@mui/material/IconButton";
+import SettingIcon from "@mui/icons-material/Settings";
 
-export default () => {
+const UnVerifiedAccountSetting = () => {
   const { sendable, sendVerificationEmail } = useVerifyEmail();
   const [isSending, setSending] = useState(false);
   return (
@@ -37,6 +40,18 @@ export default () => {
         dẫn đến hộp thư của bạn. Nhấn vào liên kết đó để xác thực email của bạn.
         Nêu bạn không tìm thấy thư, hãy kiểm tra mục thư rác (spam)
       </Typography>
+      <Hidden mdUp>
+        <IconButton
+          sx={{ position: "fixed", bottom: "1em", zIndex: 9 }}
+          onClick={() =>
+            document.getElementById("account-drawer-toggler")?.click()
+          }
+        >
+          <SettingIcon />
+        </IconButton>
+      </Hidden>
     </>
   );
 };
+
+export default UnVerifiedAccountSetting;

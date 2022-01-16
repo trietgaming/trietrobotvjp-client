@@ -10,7 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import AssignmentInd from "@mui/icons-material/AssignmentInd";
 import { Link as ReactRouterLink } from "react-router-dom";
-import ReCaptcha from "@components/AppReCaptcha";
+import ReCaptcha from "../../../../global-components/AppReCaptcha";
 import { useFormikContext } from "formik";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";

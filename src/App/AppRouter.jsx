@@ -4,10 +4,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { useLocation } from "react-router";
+import { lazy, Suspense, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Navigation from "../global-components/Navigation";
-import CenteredLoading from "@components/CenteredLoading";
+import CenteredLoading from "../global-components/CenteredLoading";
 
 const NotFound = lazy(() => import("../pages/NotFound"));
 const Games = lazy(() => import("../pages/Games"));
@@ -41,6 +42,19 @@ const AppRoute = ({ path, component, exact, withoutNav }) => {
   );
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+  return null;
+};
+
 const AppRouter = () => {
   console.log("rerender AppRouter");
 
@@ -54,6 +68,7 @@ const AppRouter = () => {
 
   return isAuthEventTriggered ? (
     <Router>
+      <ScrollToTop />
       <Switch>
         <AppRoute
           path={["/login", "/signin"]}

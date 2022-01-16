@@ -4,7 +4,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import IconButton from "@mui/material/IconButton";
 
-export default ({ showPassword, onShowAndHide, ...props }) => {
+const PasswordField = ({ showPassword, onShowAndHide, ...props }) => {
   return (
     <TextField
       {...props}
@@ -21,3 +21,5 @@ export default ({ showPassword, onShowAndHide, ...props }) => {
     />
   );
 };
+
+export default PasswordField;

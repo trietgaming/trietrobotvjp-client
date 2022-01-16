@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { memo } from "react";
 
-export default memo(({ children }) => {
+const PanelHeader = memo(({ children }) => {
   console.log("header RErender");
   return (
     <Typography
@@ -9,9 +9,11 @@ export default memo(({ children }) => {
       align="center"
       color="inherit"
       fontWeight="bold"
-      sx={{ mb: { xs: 4, md: 6 }, py: 4 }}
+      sx={{ py: 4, mx: 4 }}
     >
       {children}
     </Typography>
   );
 });
+
+export default PanelHeader;

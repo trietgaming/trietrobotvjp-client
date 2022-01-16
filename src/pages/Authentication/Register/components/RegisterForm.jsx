@@ -3,20 +3,13 @@ import * as yup from "yup";
 import RegisterFormComponent from "./RegisterFormComponent";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 import axios from "axios";
-import { useEffect } from "react";
 import { signInWithCustomToken } from "@firebase/auth";
-import useAuth from "@customHooks/useAuth";
+import useAuth from "@appHooks/useAuth";
+import useEnter from "@appHooks/useEnter";
 
 const RegisterForm = () => {
   const auth = useAuth();
-  useEffect(() => {
-    const handleEnter = (e) => {
-      if (e.code !== "Enter") return;
-      document.getElementById("register-submit").click();
-    };
-    window.addEventListener("keypress", handleEnter);
-    return () => window.removeEventListener("keypress", handleEnter);
-  }, []);
+  useEnter("register-submit");
 
   const formik = {
     validationSchema: yup.object({
@@ -60,7 +53,7 @@ const RegisterForm = () => {
             displayName: username,
           }
         );
-        console.log(response)
+        console.log(response);
         if (response && response.data.ok && response.data.token) {
           await signInWithCustomToken(auth, response.data.token);
         }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import initAppFirebase from "@appFirebase";
+import initAppFirebase from "../index";
 
 const auth = createSlice({
   name: "auth",

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useFormikContext } from "formik";
-import ReCaptcha from "@components/AppReCaptcha";
+import ReCaptcha from "../../../../global-components/AppReCaptcha";
 import { Link as ReactRouterLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";

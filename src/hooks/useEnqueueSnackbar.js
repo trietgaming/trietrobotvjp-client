@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import getErrorCodeTranslated from "@appFirebase/errorCodeTranslator";
 import { useCallback } from "react";
 
-export default () => {
+const useEnqueueSnackbar = () => {
   const { enqueueSnackbar } = useSnackbar();
   return useCallback(
     ({
@@ -12,10 +12,11 @@ export default () => {
       persist = false,
     }) =>
       enqueueSnackbar(
-        message +
-          (errCode ? " " + getErrorCodeTranslated(errCode) : ""),
+        message + (errCode ? " " + getErrorCodeTranslated(errCode) : ""),
         { variant, persist }
       ),
     []
   );
 };
+
+export default useEnqueueSnackbar;

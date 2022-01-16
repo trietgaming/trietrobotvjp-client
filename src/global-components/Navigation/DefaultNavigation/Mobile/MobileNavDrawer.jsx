@@ -29,6 +29,8 @@ const MobileNavDrawer = ({ show, hideNav, onOpen }) => {
       ModalProps={{
         keepMounted: true,
       }}
+      disableSwipeToOpen
+      disableBackdropTransition={true}
     >
       <List sx={{ width: "270px" }}>
         <ListItem sx={{ justifyContent: "flex-start" }}>

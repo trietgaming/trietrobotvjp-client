@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import { memo } from "react";
 import { useSnackbar } from "notistack";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Hidden from "@mui/material/Hidden";
 
 const UserAvatarDisplayer = memo(
   ({ photoURL, selectedFile, deleteAvatarFunction }) => {
@@ -20,7 +22,12 @@ const UserAvatarDisplayer = memo(
           },
         }}
       >
-        <Box sx={{ visibility: "visible", pt: { xs: 5, md: 0 } }}>
+        <Hidden mdUp>
+          <Typography variant="h6" textAlign="center" sx={{ py: 4 }}>
+            Ảnh đại diện
+          </Typography>
+        </Hidden>
+        <Box sx={{ visibility: "visible" }}>
           <Box
             sx={{
               position: "relative",

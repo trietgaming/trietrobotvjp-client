@@ -6,9 +6,9 @@ import { Switch, Route } from "react-router-dom";
 const BasicSettings = lazy(() => import("./BasicSettings"));
 const AdvancedSettings = lazy(() => import("./AdvancedSettings"));
 
-const SettingPanels = ({ sx }) => {
+const SettingPanels = () => {
   return (
-    <Container maxWidth="md" sx={{ ...sx }}>
+    <Container maxWidth="md" sx={{ mx: "auto", my: 3 }}>
       <Suspense fallback={<SkeletonLoading />}>
         <Switch>
           <Route path={["/account", "/account/basic"]} exact>

@@ -1,15 +1,12 @@
-import NavTabs from "@components/Navigation/components/NavTabs";
+import NavTabs from "../../../global-components/Navigation/components/NavTabs";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import useLogout from "@customHooks/useLogout";
-import Drawer from "@mui/material/Drawer";
+import useLogout from "@appHooks/useLogout";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
-import ArrowLeftIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowRightIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
-import AreYouSure from "@components/AreYouSure";
+import AreYouSure from "../../../global-components/AreYouSure";
 import Hidden from "@mui/material/Hidden";
 
 const SettingMenu = ({ handleOpenLogoutModal }) => (
@@ -17,8 +14,9 @@ const SettingMenu = ({ handleOpenLogoutModal }) => (
     sx={{
       width: "250px",
       visibility: "visible",
-      position: { xs: "relative", xl: "absolute" },
+      position: { xs: "relative", xl: "fixed" },
       left: 0,
+      flexShrink: 0,
     }}
   >
     <Hidden lgUp>
@@ -95,34 +93,20 @@ const Settings = () => {
         />
       )}
       <Hidden lgUp>
-        <Hidden mdDown implementation="css">
-          <IconButton
-            onClick={handleDrawerToggle}
-            sx={{
-              backgroundColor: "primary.main",
-              top: "50%",
-              color: "white",
-              transform: "translate(50%,-50%)",
-              position: "fixed",
-              left: isOpen ? 210 : { xs: -31, lg: -10 },
-              transition: ".2s ease-in-out",
-              zIndex: { xs: 10000, lg: 2 },
-              "&:hover": {
-                backgroundColor: "primary.dark",
-              },
-            }}
-            id="account-drawer-toggler"
-          >
-            {isOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-          </IconButton>
-        </Hidden>
-        <Drawer
-          variant="temporary"
+        <button
+          onClick={handleDrawerToggle}
+          style={{
+            display: "none",
+          }}
+          id="account-drawer-toggler"
+        />
+        <SwipeableDrawer
           anchor="left"
-          open={isOpen}
+          open={!!isOpen}
+          onOpen={handleDrawerToggle}
           onClose={handleDrawerToggle}
           sx={{
-            zIndex: { xs: 3, lg: 1 },
+            zIndex: { xs: 3, md: 4, lg: 1 },
             width: "500px!important",
             position: "fixed",
             borderBlock: "none",
@@ -131,9 +115,10 @@ const Settings = () => {
               lg: "hidden",
             },
           }}
+          disableSwipeToOpen
         >
           <SettingMenu {...{ handleOpenLogoutModal }} />
-        </Drawer>
+        </SwipeableDrawer>
       </Hidden>
       <Hidden lgDown>
         <SettingMenu {...{ handleOpenLogoutModal }} />

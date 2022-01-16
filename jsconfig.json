@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "paths": {
+      "@appHooks/*": ["./src/hooks/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@appFirebase/*": ["./src/firebase/*"],
+      "@appComponents/*": ["./src/global-components/*"]
+    }
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

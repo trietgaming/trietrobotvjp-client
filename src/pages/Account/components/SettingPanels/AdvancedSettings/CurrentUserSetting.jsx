@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import useUser from "../../../../../hooks/useUser";
+import useUser from "@appHooks/useUser";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const UnVerifiedAccountSetting = lazy(() =>
@@ -7,7 +7,7 @@ const UnVerifiedAccountSetting = lazy(() =>
 );
 const VerifiedAccountSetting = lazy(() => import("./VerifiedAccountSetting"));
 
-export default () => {
+const CurrentUserSetting = () => {
   const user = useUser();
 
   return (
@@ -20,3 +20,5 @@ export default () => {
     </Suspense>
   );
 };
+
+export default CurrentUserSetting;

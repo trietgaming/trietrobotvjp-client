@@ -1,9 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import { DiscordIcon, MessengerIcon } from "@assets/icons";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";

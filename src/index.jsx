@@ -1,17 +1,14 @@
-import { StrictMode as ReactStrictMode } from "react";
-import { render as ReactDOMRender } from "react-dom";
+import { render } from "preact";
 import { Provider } from "react-redux";
 import AppSnackbarProvider from "./App/AppSnackbarProvider";
 import App from "./App/App";
-import store from "@appReduxStore";
+import store from "./App/store";
 
-ReactDOMRender(
-  <ReactStrictMode>
-    <Provider store={store}>
-      <AppSnackbarProvider>
-        <App />
-      </AppSnackbarProvider>
-    </Provider>
-  </ReactStrictMode>,
+render(
+  <Provider store={store}>
+    <AppSnackbarProvider>
+      <App />
+    </AppSnackbarProvider>
+  </Provider>,
   document.getElementById("root")
 );

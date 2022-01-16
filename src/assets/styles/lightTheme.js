@@ -26,6 +26,9 @@ export default {
     contrast: {
       main: "#050505",
     },
+    input: {
+      main: "rgb(248, 249, 250)",
+    },
     divider: "rgba(0,0,0,0.17)",
   },
   components: {
@@ -41,14 +44,6 @@ export default {
       },
       defaultProps: {
         color: "inherit",
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          boxShadow: "0px 0px 14px 0px rgba(0,0,0,0.25)",
-          borderRadius: "12px",
-        },
       },
     },
   },

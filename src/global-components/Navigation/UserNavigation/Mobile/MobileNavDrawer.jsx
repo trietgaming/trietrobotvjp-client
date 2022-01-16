@@ -31,9 +31,11 @@ const MobileNavDrawer = ({ show, hideNav, onOpen }) => {
       ModalProps={{
         keepMounted: true,
       }}
+      disableSwipeToOpen
+      disableBackdropTransition={true}
     >
       <List sx={{ width: "270px" }}>
-        <ListItem >
+        <ListItem>
           <IconButton onClick={hideNav}>
             <CloseIcon />
           </IconButton>

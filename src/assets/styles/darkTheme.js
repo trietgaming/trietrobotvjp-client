@@ -27,12 +27,14 @@ export default {
     contrast: {
       main: "#ffffff",
     },
+    input: {
+      main: "#1e1f21",
+    },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         colorInherit: {
-          backgroundColor: "#18191a",
           color: "#fff",
         },
         root: {
@@ -47,9 +49,7 @@ export default {
       styleOverrides: {
         root: {
           backgroundImage:
-            "linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01))",
-          borderRadius: "12px",
-          boxShadow: "0px 0px 14px 0px rgba(0,0,0,0.25)",
+            "linear-gradient(rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01))",
         },
       },
     },

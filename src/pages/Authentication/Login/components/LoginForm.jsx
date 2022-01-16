@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import LoginFormComponent from "./LoginFormComponent";
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import useAuth from "@customHooks/useAuth";
+import useAuth from "@appHooks/useAuth";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 
 const LoginForm = () => {

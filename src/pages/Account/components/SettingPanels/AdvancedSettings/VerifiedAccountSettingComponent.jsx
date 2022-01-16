@@ -12,21 +12,22 @@ import ActionButton from "../ActionButton";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Badge from "@mui/material/Badge";
-import useUser from "@customHooks/useUser";
+import useUser from "@appHooks/useUser";
 import CreatePinCodeModal from "./CreatePinCodeModal";
 import Paper from "@mui/material/Paper";
 
 const SettingFlex = ({ children, ...props }) => (
-  <Paper sx={{ my: 1.5 }}>
+  <Paper sx={{ visibility: { md: "hidden" }, my: 1.5 }}>
     <Container
       sx={{
         display: "flex",
         justifyContent: { sm: "space-between", xs: "space-evenly" },
-        my: 2,
+        my: 2.5,
         flexDirection: {
           xs: "column",
           sm: "row",
         },
+        visibility: "visible",
       }}
       {...props}
     >
@@ -133,7 +134,7 @@ const BooleanSwitchers = () => {
   return <>{Components}</>;
 };
 
-export default () => {
+const VerifiedAccountSettingComponent = () => {
   const { values, errors } = useFormikContext();
   const hasPinCode = useUser()?.account?.hasPinCode;
 
@@ -186,3 +187,5 @@ export default () => {
     </>
   );
 };
+
+export default VerifiedAccountSettingComponent;

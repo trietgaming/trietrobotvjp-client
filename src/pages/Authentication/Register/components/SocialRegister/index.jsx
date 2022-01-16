@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import ConflictRegister from "./ConflictRegister";
-import CenteredLoading from "@components/CenteredLoading";
+import CenteredLoading from "../../../../../global-components/CenteredLoading";
 import { useSnackbar } from "notistack";
 import getErrorTranslated from "@appFirebase/errorCodeTranslator";
 import { Redirect } from "react-router-dom";

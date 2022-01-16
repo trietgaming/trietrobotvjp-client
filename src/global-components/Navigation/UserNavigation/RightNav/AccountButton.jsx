@@ -4,7 +4,7 @@ import Hidden from "@mui/material/Hidden";
 import { useState, useRef } from "react";
 import AccountMenu from "../AccountMenu";
 import defaultAvatar from "@assets/images/default-avatar.jpg";
-import useUser from "@customHooks/useUser";
+import useUser from "@appHooks/useUser";
 
 const AccountButton = () => {
   const [isAccountMenuOpen, setAccountMenuOpen] = useState(false);

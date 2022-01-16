@@ -1,16 +1,15 @@
-import { JoinedDate } from "./BasicSettings/InputlessComponent";
 import Button from "@mui/material/Button";
 import { useFormikContext } from "formik";
 import CircularProgress from "@mui/material/CircularProgress";
-import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
+import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
 import Paper from "@mui/material/Paper";
 import Hidden from "@mui/material/Hidden";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import SettingIcon from "@mui/icons-material/Settings";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 
-export default ({ joinedDate, customReset }) => {
+const ActionButton = ({ customReset }) => {
   const { isSubmitting, handleSubmit, dirty, isValid, resetForm } =
     useFormikContext();
   const enqueueSnackbar = useEnqueueSnackbar();
@@ -21,15 +20,13 @@ export default ({ joinedDate, customReset }) => {
       </Hidden>
       <Paper
         sx={{
-          position: { xs: "fixed", md: "relative" },
+          position: { xs: "fixed", md: "sticky" },
           bottom: 0,
           left: 0,
-          visibility: {
-            xs: "visible",
-            md: "hidden",
-          },
+          boxShadow: { md: "none" },
           width: "100%",
           zIndex: 4,
+          visibility: "visible",
         }}
       >
         <Box
@@ -38,20 +35,14 @@ export default ({ joinedDate, customReset }) => {
             justifyContent: "space-between",
             visibility: "visible",
             alignItems: "center",
-            mx: {
-              xs: 2,
-              md: 0,
-            },
+            mx: 2,
           }}
         >
           <Box>
-            <Hidden mdDown>
-              {joinedDate ? <JoinedDate {...{ joinedDate }} /> : <></>}
-            </Hidden>
-            <Hidden mdUp>
+            <Hidden lgUp>
               <IconButton
                 onClick={() =>
-                  document.getElementById("account-drawer-toggler")?.click()
+                  document.getElementById("account-drawer-toggler").click()
                 }
               >
                 <SettingIcon />
@@ -81,7 +72,7 @@ export default ({ joinedDate, customReset }) => {
               color="primary"
               disabled={isSubmitting || !dirty || !isValid}
             >
-              {isSubmitting && <CircularProgress size={20} />}
+              {isSubmitting && <CircularProgress size={20} sx={{ mr: 2 }} />}
               Lưu
             </Button>
           </Box>
@@ -90,3 +81,5 @@ export default ({ joinedDate, customReset }) => {
     </>
   );
 };
+
+export default ActionButton;

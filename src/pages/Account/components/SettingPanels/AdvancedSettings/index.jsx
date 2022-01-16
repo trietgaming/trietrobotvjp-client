@@ -1,6 +1,6 @@
 import Paper from "@mui/material/Paper";
 import PanelHeader from "../PanelHeader";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import CurrentUserSetting from "./CurrentUserSetting";
 
 const AdvancedSettings = () => {
@@ -11,9 +11,12 @@ const AdvancedSettings = () => {
           xs: "hidden",
           md: "visible",
         },
+        "& > *": {
+          mx: { xs: 0, md: 3 },
+        },
       }}
     >
-      <Container
+      <Box
         sx={{
           visibility: "visible",
           py: { xs: 2, md: 4 },
@@ -21,7 +24,7 @@ const AdvancedSettings = () => {
       >
         <PanelHeader>{"CÀI ĐẶT NÂNG CAO"}</PanelHeader>
         <CurrentUserSetting />
-      </Container>
+      </Box>
     </Paper>
   );
 };

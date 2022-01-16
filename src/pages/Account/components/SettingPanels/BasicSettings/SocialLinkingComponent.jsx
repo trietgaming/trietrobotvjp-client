@@ -1,15 +1,10 @@
-import { memo } from "react";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
 import SocialButton from "../../../../Authentication/shared-components/SocialButton";
 import FacebookRounded from "@mui/icons-material/FacebookRounded";
 import { DiscordIcon } from "@assets/icons";
-import useUser from "@customHooks/useUser";
+import useUser from "@appHooks/useUser";
 import { getIdToken, unlink } from "@firebase/auth";
-import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
-import { useState, useMemo } from "react";
-import Paper from "@mui/material/Paper";
+import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
+import { useState, useMemo, memo } from "react";
 
 const SocialLinkingComponent = memo(() => {
   const user = useUser();
@@ -90,52 +85,38 @@ const SocialLinkingComponent = memo(() => {
   };
 
   return (
-    <Paper>
-      <Container>
-        <Divider />
-        <SocialButton
-          bgColor="#5865F2"
-          Icon={DiscordIcon}
-          textColor="white"
-          sx={{
-            mt: 3,
-          }}
-          disabled={status.loading}
-          onClick={() => handleSocialAction("discord")}
-        >
-          {discordData?.uid
-            ? !status.discord.sure
-              ? `Hủy liên kết: ID ${discordData?.uid}`
-              : "Xác nhận hủy liên kết?"
-            : "Liên kết Discord"}
-        </SocialButton>
-        <SocialButton
-          bgColor="#3360ff"
-          Icon={FacebookRounded}
-          textColor="white"
-          sx={{ my: 2 }}
-          onClick={() => handleSocialAction("facebook")}
-          disabled={status.loading}
-        >
-          {FBData?.uid
-            ? !status.facebook.sure
-              ? `Hủy liên kết: ID ${FBData?.uid}`
-              : "Xác nhận hủy liên kết?"
-            : "Liên kết Facebook"}
-        </SocialButton>
-      </Container>
-    </Paper>
+    <>
+      <SocialButton
+        bgColor="#5865F2"
+        Icon={DiscordIcon}
+        textColor="white"
+        disabled={status.loading}
+        onClick={() => handleSocialAction("discord")}
+        size="large"
+      >
+        {discordData?.uid
+          ? !status.discord.sure
+            ? `Hủy liên kết: ID ${discordData?.uid}`
+            : "Xác nhận hủy liên kết?"
+          : "Liên kết Discord"}
+      </SocialButton>
+      <SocialButton
+        bgColor="#3360ff"
+        Icon={FacebookRounded}
+        textColor="white"
+        sx={{ my: 2 }}
+        onClick={() => handleSocialAction("facebook")}
+        disabled={status.loading}
+        size="large"
+      >
+        {FBData?.uid
+          ? !status.facebook.sure
+            ? `Hủy liên kết: ID ${FBData?.uid}`
+            : "Xác nhận hủy liên kết?"
+          : "Liên kết Facebook"}
+      </SocialButton>
+    </>
   );
 });
 
-const JoinedDate = memo(({ joinedDate }) => {
-  console.log("rerender typ");
-  const _joinedDate = new Date(+joinedDate);
-  return (
-    <Typography variant="body1" color="inherit" sx={{ mt: 3, mb: 4 }}>
-      Ngày tham gia: {_joinedDate.toLocaleDateString("vi")}
-    </Typography>
-  );
-});
-
-export { JoinedDate, SocialLinkingComponent };
+export default SocialLinkingComponent;

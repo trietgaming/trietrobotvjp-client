@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
-import { sendEmailVerification } from "firebase/auth";
+import { sendEmailVerification } from "@firebase/auth";
 import useUser from "./useUser";
 import useEnqueueSnackbar from "./useEnqueueSnackbar";
 
-export default () => {
+const useVerifyEmail = () => {
   const currentUser = useUser();
   const enqueueSnackbar = useEnqueueSnackbar();
   const [sendable, setSendable] = useState(
@@ -42,3 +42,5 @@ export default () => {
     }, []),
   };
 };
+
+export default useVerifyEmail;

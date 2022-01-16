@@ -1,8 +1,7 @@
-import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { SocialLinkingComponent } from "./InputlessComponent";
+import SocialLinkingComponent from "./SocialLinkingComponent";
 import IDAndEmailFields from "./IDAndEmailFields";
 import UserAvatarChanger from "./UserAvatarChanger";
 import { useFormikContext } from "formik";
@@ -11,10 +10,7 @@ import ActionButton from "../ActionButton";
 
 const BasicSettingsComponent = ({
   handleResetForm,
-  currentUser: {
-    photoURL,
-    metadata: { createdAt },
-  },
+  currentUser: { photoURL },
   FileInputField,
 }) => {
   const {
@@ -40,10 +36,11 @@ const BasicSettingsComponent = ({
         },
       }}
     >
-      <Container
+      <Box
         sx={{
           visibility: "visible",
           py: { xs: 2, md: 4 },
+          mx: { xs: 0, md: 3 },
         }}
       >
         <PanelHeader>{"CÀI ĐẶT CƠ BẢN"}</PanelHeader>
@@ -88,11 +85,8 @@ const BasicSettingsComponent = ({
           />
         </Box>
         <SocialLinkingComponent />
-        <ActionButton
-          joinedDate={createdAt}
-          customReset={() => handleResetForm(resetForm)}
-        />
-      </Container>
+        <ActionButton customReset={() => handleResetForm(resetForm)} />
+      </Box>
     </Paper>
   );
 };

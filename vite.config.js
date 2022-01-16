@@ -1,26 +1,31 @@
 import { defineConfig } from "vite";
-import svgrPlugin from "vite-plugin-svgr";
-import react from "@vitejs/plugin-react";
+import prefresh from "@prefresh/vite";
+import svgr from "vite-plugin-svgr";
 import fs from "fs";
-import eslint from "@rollup/plugin-eslint";
-
+//eslint-disable-next-line
+process.env.NODE_ENV === "development" && import("preact/debug");
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    svgrPlugin(),
-    { ...eslint({ include: "src/**/*.+(jsx | js)" }), enforce: "pre" },
-  ],
+  esbuild: {
+    jsxFactory: "h",
+    jsxFragment: "Fragment",
+    jsxInject: `import { h, Fragment } from 'preact'`,
+    legalComments: "none",
+    sourcemap: false,
+    minify: true,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
+  },
+  plugins: [svgr(), prefresh()],
   resolve: {
     alias: [
-      { find: "@assets", replacement: `${__dirname}/src/assets` },
-      { find: "@appFirebase", replacement: `${__dirname}/src/firebase` },
-      { find: "@appReduxStore", replacement: `${__dirname}/src/App/store.js` },
-      { find: "@customHooks", replacement: `${__dirname}/src/hooks` },
-      {
-        find: "@components",
-        replacement: `${__dirname}/src/global-components`,
-      },
-      { find: "@CONFIG", replacement: `${__dirname}/app-config.json` },
+      { find: "react", replacement: "preact/compat" },
+      { find: "react-dom", replacement: "preact/compat" },
+      { find: "@appHooks", replacement: "/src/hooks" },
+      { find: "@appFirebase", replacement: "/src/firebase" },
+      { find: "@assets", replacement: "/src/assets" },
+      { find: "@appComponents", replacement: "/src/global-components" },
     ],
   },
   server: {
@@ -29,5 +34,6 @@ export default defineConfig({
       key: fs.readFileSync("localhost-key.pem"),
       cert: fs.readFileSync("localhost.pem"),
     },
+    host: "0.0.0.0",
   },
 });

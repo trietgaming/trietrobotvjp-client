@@ -1,13 +1,13 @@
 import { Formik } from "formik";
-import VerifiedAccountSetting from "./VerifiedAccountSettingComponent";
+import VerifiedAccountSettingComponent from "./VerifiedAccountSettingComponent";
 import * as yup from "yup";
-import useUser from "@customHooks/useUser";
+import useUser from "@appHooks/useUser";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
-import useUpdateUser from "@customHooks/useUpdateUser";
+import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
+import useUpdateUser from "@appHooks/useUpdateUser";
 
-export default () => {
+const VerifiedAccountSetting = () => {
   const currentUser = useUser();
   const { isBalancePublic, isInventoryPublic, isTradeable } =
     currentUser?.account || {};
@@ -52,9 +52,11 @@ export default () => {
         enableReinitialize: true,
       }}
     >
-      <VerifiedAccountSetting />
+      <VerifiedAccountSettingComponent />
     </Formik>
   ) : (
     <CircularProgress sx={{ display: "flex", mx: "auto" }} />
   );
 };
+
+export default VerifiedAccountSetting;

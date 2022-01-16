@@ -4,7 +4,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 const AppSnackbarProvider = ({ children }) => {
-
   const notistackRef = useRef();
   const onClickDismiss = (key) => () => {
     notistackRef.current.closeSnackbar(key);
@@ -22,6 +21,7 @@ const AppSnackbarProvider = ({ children }) => {
         vertical: "bottom",
         horizontal: "center",
       }}
+      style={{ borderRadius: "10px" }}
     >
       {children}
     </SnackbarProvider>

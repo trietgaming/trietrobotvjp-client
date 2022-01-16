@@ -2,10 +2,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Hidden from "@mui/material/Hidden";
 import ApplicationLogo from "../components/ApplicationLogo";
-import { lazy, Suspense } from "react";
-const RightNav = lazy(() => import("./RightNav"));
-const CenterNav = lazy(() => import("./CenterNav"));
-const MobileNav = lazy(() => import("./Mobile/MobileNav"));
+import RightNav from "./RightNav";
+import CenterNav from "./CenterNav";
+import MobileNav from "./Mobile/MobileNav";
 
 const DefaultNavigation = () => {
   console.log("rerender nav");
@@ -37,19 +36,17 @@ const DefaultNavigation = () => {
             },
           }}
         >
-          <Suspense fallback={<></>}>
-            <Hidden lgDown>
-              <ApplicationLogo sx={{ flexGrow: 0, display: "flex" }} />
-            </Hidden>
-            <Hidden mdDown>
-              <CenterNav />
-              <RightNav />
-            </Hidden>
-            <Hidden mdUp>
-              <MobileNav />
-              <RightNav mobile />
-            </Hidden>
-          </Suspense>
+          <Hidden lgDown>
+            <ApplicationLogo sx={{ flexGrow: 0, display: "flex" }} />
+          </Hidden>
+          <Hidden mdDown>
+            <CenterNav />
+            <RightNav />
+          </Hidden>
+          <Hidden mdUp>
+            <MobileNav />
+            <RightNav mobile />
+          </Hidden>
         </Toolbar>
       </AppBar>
     </AppBar>

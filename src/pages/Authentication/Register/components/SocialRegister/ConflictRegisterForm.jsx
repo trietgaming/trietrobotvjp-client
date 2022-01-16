@@ -1,26 +1,17 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import ConflictRegisterFormComponent from "./ConflictRegisterFormComponent";
-import { useEffect } from "react";
 import axios from "axios";
-import {
-  signInWithCustomToken,
-} from "@firebase/auth";
-import useAuth from "@customHooks/useAuth";
-import useEnqueueSnackbar from "@customHooks/useEnqueueSnackbar";
+import { signInWithCustomToken } from "@firebase/auth";
+import useAuth from "@appHooks/useAuth";
+import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
+import useEnter from "@appHooks/useEnter";
 
 const ConflictRegisterForm = ({ payload }) => {
   const auth = useAuth();
   const enqueueSnackbar = useEnqueueSnackbar();
 
-  useEffect(() => {
-    const handleEnter = (e) => {
-      if (e.code !== "Enter") return;
-      document.getElementById("submit-btn").click();
-    };
-    window.addEventListener("keypress", handleEnter);
-    return () => window.removeEventListener("keypress", handleEnter);
-  }, []);
+  useEnter("submit-btn");
 
   const formik = {
     validationSchema: yup.object({

@@ -6,10 +6,10 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Help from "@mui/icons-material/Help";
 import ChangeThemeModeButton from "./ChangeThemeModeButton";
-import useLogout from "@customHooks/useLogout";
+import useLogout from "@appHooks/useLogout";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import AreYouSure from "@components/AreYouSure";
+import AreYouSure from "../../../global-components/AreYouSure";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import FlagIcon from "@mui/icons-material/Flag";
 

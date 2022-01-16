@@ -10,7 +10,7 @@ const Account = () => {
       disableGutters
     >
       <Settings />
-      <SettingPanels sx={{ mx: "auto", my: 3 }} />
+      <SettingPanels />
     </Container>
   );
 };

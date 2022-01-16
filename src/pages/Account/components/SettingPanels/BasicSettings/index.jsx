@@ -2,8 +2,8 @@ import { useCallback, useRef } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import BasicSettingsComponent from "./BasicSettingsComponent";
-import useUser from "@customHooks/useUser";
-import useUpdateUserData from "@customHooks/useUpdateUserData";
+import useUser from "@appHooks/useUser";
+import useUpdateUserData from "@appHooks/useUpdateUserData";
 import { useSnackbar } from "notistack";
 
 const BasicSettings = () => {
