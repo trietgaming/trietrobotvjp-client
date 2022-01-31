@@ -8,8 +8,8 @@ import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
 import useUpdateUser from "@appHooks/useUpdateUser";
 
 const VerifiedAccountSetting = () => {
-  const currentUser = useUser();
-  const { isBalancePublic, isInventoryPublic, isTradeable } =
+  const currentUser = useUser("account");
+  const { isBalancePublic, isInventoryPublic, isTradable } =
     currentUser?.account || {};
   const enqueueSnackbar = useEnqueueSnackbar();
   const updateUser = useUpdateUser();
@@ -20,12 +20,12 @@ const VerifiedAccountSetting = () => {
         validationSchema: yup.object({
           isBalancePublic: yup.boolean(),
           isInventoryPublic: yup.boolean(),
-          isTradeable: yup.boolean(),
+          isTradable: yup.boolean(),
         }),
         initialValues: {
           isBalancePublic,
           isInventoryPublic,
-          isTradeable,
+          isTradable,
         },
         onSubmit: async (values, { resetForm }) => {
           try {
@@ -36,8 +36,11 @@ const VerifiedAccountSetting = () => {
               { values }
             );
 
-            if (!response.data.ok || !response.data.account) throw "unexpected";
-            currentUser.account = response.data.account;
+            if (!response.data.ok || !response.data.data) throw "unexpected";
+            currentUser.account = {
+              ...currentUser.account,
+              ...response.data.data,
+            };
             updateUser(currentUser);
             resetForm();
             enqueueSnackbar({
@@ -45,7 +48,7 @@ const VerifiedAccountSetting = () => {
               variant: "success",
             });
           } catch (err) {
-            console.log(err);
+            console.log(JSON.stringify(err.response, null, 2));
             enqueueSnackbar({ errCode: err?.response?.data?.code });
           }
         },

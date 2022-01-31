@@ -95,7 +95,7 @@ const LowerComponent = memo(({ loading, submitError, isValid, dirty }) => {
         Đăng ký
       </Button>
       {submitError && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{ mb: 2, boxShadow: "none" }}>
           <AlertTitle>Đăng ký thất bại</AlertTitle>
           {submitError}
         </Alert>

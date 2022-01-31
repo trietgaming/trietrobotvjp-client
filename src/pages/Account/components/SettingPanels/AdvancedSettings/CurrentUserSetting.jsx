@@ -8,7 +8,7 @@ const UnVerifiedAccountSetting = lazy(() =>
 const VerifiedAccountSetting = lazy(() => import("./VerifiedAccountSetting"));
 
 const CurrentUserSetting = () => {
-  const user = useUser();
+  const user = useUser("emailVerified");
 
   return (
     <Suspense fallback={<CircularProgress />}>

@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "impliedStrict": true,
+      "modules": true
+    },
+    "sourceType": "module"
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off"
+  }
+}

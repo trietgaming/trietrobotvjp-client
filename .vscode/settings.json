@@ -1,4 +1,5 @@
 {
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.validate.enable": false
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.validate.enable": true,
+  "editor.formatOnSave": true
 }

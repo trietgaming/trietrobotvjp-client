@@ -7,7 +7,7 @@ import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
 import { useState, useMemo, memo } from "react";
 
 const SocialLinkingComponent = memo(() => {
-  const user = useUser();
+  const user = useUser("providerData");
   const enqueueSnackbar = useEnqueueSnackbar();
   const [status, setStatus] = useState({
     loading: false,

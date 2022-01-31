@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 const IDAndEmailFields = memo(() => {
-  const { uid, email, emailVerified } = useUser();
+  const { uid, email, emailVerified } = useUser("emailVerified", "email");
   const [isSending, setSending] = useState(false); //isSending also like isSent
   const [isShowEmail, setShowEmail] = useState(false);
   const { sendable, sendVerificationEmail } = useVerifyEmail();

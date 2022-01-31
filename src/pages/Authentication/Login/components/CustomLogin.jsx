@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import useAuth from "@appHooks/useAuth";
 import CenteredLoading from "../../../../global-components/CenteredLoading";
 import { useSnackbar } from "notistack";
-import gerErrorTranslated from "@appFirebase/errorCodeTranslator";
+import gerErrorTranslated from "src/errorCodeTranslator";
 
 const CustomLogin = () => {
   const [Component, setComponent] = useState(<CenteredLoading />);

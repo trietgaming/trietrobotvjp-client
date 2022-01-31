@@ -10,7 +10,7 @@ const AccountButton = () => {
   const [isAccountMenuOpen, setAccountMenuOpen] = useState(false);
   const toggleMenuEl = useRef(null);
 
-  const currentUser = useUser();
+  const currentUser = useUser("photoURL", "displayName");
 
   const handleAccountMenuClose = () => {
     return setAccountMenuOpen(false);

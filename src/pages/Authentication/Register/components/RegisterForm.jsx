@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import RegisterFormComponent from "./RegisterFormComponent";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import getErrorTranslated from "src/errorCodeTranslator";
 import axios from "axios";
 import { signInWithCustomToken } from "@firebase/auth";
 import useAuth from "@appHooks/useAuth";

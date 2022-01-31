@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 
 const BasicSettings = lazy(() => import("./BasicSettings"));
 const AdvancedSettings = lazy(() => import("./AdvancedSettings"));
+const PasswordChange = lazy(() => import("./PasswordChange"));
 
 const SettingPanels = () => {
   return (
@@ -16,6 +17,11 @@ const SettingPanels = () => {
           </Route>
           <Route path="/account/advanced" exact>
             <AdvancedSettings />
+          </Route>
+          <Route
+            path={["/password-change", "/change-password", "/reset-password"]}
+          >
+            <PasswordChange />
           </Route>
         </Switch>
       </Suspense>

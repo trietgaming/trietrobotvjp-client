@@ -5,14 +5,11 @@ import SocialLinkingComponent from "./SocialLinkingComponent";
 import IDAndEmailFields from "./IDAndEmailFields";
 import UserAvatarChanger from "./UserAvatarChanger";
 import { useFormikContext } from "formik";
-import PanelHeader from "../PanelHeader";
-import ActionButton from "../ActionButton";
+import PanelHeader from "../components/PanelHeader";
+import ActionButton from "../components/ActionButton";
+import useUser from "@appHooks/useUser";
 
-const BasicSettingsComponent = ({
-  handleResetForm,
-  currentUser: { photoURL },
-  FileInputField,
-}) => {
+const BasicSettingsComponent = ({ handleResetForm, FileInputField }) => {
   const {
     values,
     touched,
@@ -24,6 +21,7 @@ const BasicSettingsComponent = ({
     isValid,
     setFieldValue,
   } = useFormikContext();
+  const { photoURL } = useUser("photoURL");
   console.log("dirty: ", dirty);
   console.log("isvalid: ", isValid);
   console.log(errors);

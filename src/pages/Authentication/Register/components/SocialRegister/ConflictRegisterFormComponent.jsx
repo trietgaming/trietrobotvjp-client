@@ -44,9 +44,9 @@ const SubmitButton = () => {
 };
 
 const ConflictRegisterFormComponent = ({
-  payload: { email, discord_id: discordId, provider, facebook_id: facebookId },
+  payload: { email, id, provider },
 }) => {
-  const socialMedia = provider === "discord" ? "Discord" : "Facebook";
+  const socialMedia = provider[0].toUpperCase() + provider.slice(1);
   return (
     <>
       <HeaderIcon Icon={AddLinkIcon} />
@@ -60,16 +60,16 @@ const ConflictRegisterFormComponent = ({
       </Typography>
       <TextField
         fullWidth
-        label={provider === "discord" ? "Id Discord" : "Id Facebook"}
+        label={`Id ${socialMedia}`}
         type="text"
-        value={discordId || facebookId}
+        value={id}
         disabled
       />
       <TextField
         fullWidth
         label="Email"
         type="text"
-        value={email || email}
+        value={email}
         disabled
         sx={{ mt: 3 }}
       />

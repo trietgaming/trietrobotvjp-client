@@ -4,64 +4,69 @@ import Button from "@mui/material/Button";
 import useLogout from "@appHooks/useLogout";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Toolbar from "@mui/material/Toolbar";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import AreYouSure from "../../../global-components/AreYouSure";
 import Hidden from "@mui/material/Hidden";
 
-const SettingMenu = ({ handleOpenLogoutModal }) => (
-  <Box
-    sx={{
-      width: "250px",
-      visibility: "visible",
-      position: { xs: "relative", xl: "fixed" },
-      left: 0,
-      flexShrink: 0,
-    }}
-  >
-    <Hidden lgUp>
-      <Toolbar />
-      <Toolbar />
-    </Hidden>
-    <Typography
-      variant="h6"
-      color="inherit"
-      align="center"
-      fontWeight="bold"
-      sx={{ mt: 4, mb: 2 }}
-    >
-      TÀI KHOẢN
-    </Typography>
-    <NavTabs
-      TabList={[
-        { path: "/account", label: "CÀI ĐẶT CƠ BẢN", exact: true },
-        { path: "/account/advanced", label: "CÀI ĐẶT NÂNG CAO" },
-      ]}
-      orientation="vertical"
+const SettingMenu = ({ handleOpenLogoutModal }) => {
+  const tabList = useRef([
+    { path: "/account", label: "CÀI ĐẶT CƠ BẢN", exact: true },
+    { path: "/account/advanced", label: "CÀI ĐẶT NÂNG CAO" },
+    { path: "/account/password-change", label: "THAY ĐỔI MẬT KHẨU" },
+  ]).current;
+
+  return (
+    <Box
       sx={{
-        width: "100%",
-        "& > *": { width: "100%" },
-        "& .MuiTab-root": {
-          height: "60px!important",
-        },
-      }}
-    />
-    <Button
-      variant="contained"
-      color="error"
-      onClick={handleOpenLogoutModal}
-      sx={{
-        position: "absolute",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "80%",
-        my: 3,
+        width: "250px",
+        visibility: "visible",
+        position: { xs: "relative", xl: "fixed" },
+        left: 0,
+        flexShrink: 0,
       }}
     >
-      Đăng xuất
-    </Button>
-  </Box>
-);
+      <Hidden lgUp>
+        <Toolbar />
+        <Toolbar />
+      </Hidden>
+      <Typography
+        variant="h6"
+        color="inherit"
+        align="center"
+        fontWeight="bold"
+        sx={{ mt: 4, mb: 2 }}
+      >
+        TÀI KHOẢN
+      </Typography>
+      <NavTabs
+        TabList={tabList}
+        orientation="vertical"
+        sx={{
+          width: "100%",
+          "& > *": { width: "100%" },
+          "& .MuiTab-root": {
+            height: "60px!important",
+          },
+        }}
+      />
+      <Button
+        variant="contained"
+        color="error"
+        onClick={handleOpenLogoutModal}
+        sx={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "80%",
+          my: 3,
+        }}
+      >
+        Đăng xuất
+      </Button>
+    </Box>
+  );
+};
 
 const Settings = () => {
   const [isOpen, setOpen] = useState(false);

@@ -1,7 +1,7 @@
 import { sendPasswordResetEmail } from "@firebase/auth";
 import useAuth from "@appHooks/useAuth";
 import { useSnackbar } from "notistack";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import getErrorTranslated from "src/errorCodeTranslator";
 import * as yup from "yup";
 import { Formik } from "formik";
 import FormComponent from "./FormComponent";

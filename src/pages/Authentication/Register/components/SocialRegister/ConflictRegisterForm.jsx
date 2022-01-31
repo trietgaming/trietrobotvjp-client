@@ -34,7 +34,9 @@ const ConflictRegisterForm = ({ payload }) => {
         return enqueueSnackbar({ errCode: "jwt/invalid" });
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/auth/${payload.provider}/verify`,
+          `${import.meta.env.VITE_BACKEND_URL}/auth/provider/${
+            payload.provider
+          }/verify`,
           {
             jwtToken: payload.rawToken,
             password,

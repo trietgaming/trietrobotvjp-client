@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import PanelHeader from "../PanelHeader";
+import PanelHeader from "../components/PanelHeader";
 import Box from "@mui/material/Box";
 import CurrentUserSetting from "./CurrentUserSetting";
 

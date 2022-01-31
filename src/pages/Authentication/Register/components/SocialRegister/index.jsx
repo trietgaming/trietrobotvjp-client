@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ConflictRegister from "./ConflictRegister";
 import CenteredLoading from "../../../../../global-components/CenteredLoading";
 import { useSnackbar } from "notistack";
-import getErrorTranslated from "@appFirebase/errorCodeTranslator";
+import getErrorTranslated from "src/errorCodeTranslator";
 import { Redirect } from "react-router-dom";
 
 const SocialRegister = () => {
@@ -22,7 +22,7 @@ const SocialRegister = () => {
 
     try {
       const response = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/auth/discord/verify",
+        import.meta.env.VITE_BACKEND_URL + "/auth/provider/discord/verify",
         {
           jwtToken: token,
         }

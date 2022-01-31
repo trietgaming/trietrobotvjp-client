@@ -2,7 +2,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Help from "@mui/icons-material/Help";
 import ChangeThemeModeButton from "./ChangeThemeModeButton";
@@ -12,6 +11,11 @@ import { useState } from "react";
 import AreYouSure from "../../../global-components/AreYouSure";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import FlagIcon from "@mui/icons-material/Flag";
+import Avatar from "@mui/material/Avatar";
+import useUser from "@appHooks/useUser";
+import defaultAvatar from "@assets/images/default-avatar.jpg";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const AccountMenu = ({
   toggleMenuEl,
@@ -23,7 +27,8 @@ const AccountMenu = ({
   const handleToggleLogoutModal = () => {
     setLogoutModalOpen((prev) => !prev);
   };
-
+  const user = useUser("photoURL", "displayName");
+  console.log("rerender ACCOUNT MENU");
   return (
     <>
       {isLogoutModalOpen && (
@@ -69,11 +74,28 @@ const AccountMenu = ({
           onClick={handleAccountMenuClose}
           to="/account"
           component={Link}
+          sx={{ width: "auto!important", height: "auto!important" }}
         >
-          <ListItemIcon>
-            <Settings />
-          </ListItemIcon>
-          Cài đặt tài khoản
+          <Box
+            display="flex"
+            sx={{ justifyContent: "flex-start", width: "100%" }}
+          >
+            <Avatar
+              sx={{ width: "56px!important", height: "56px!important" }}
+              src={user.photoURL || defaultAvatar}
+            />
+            <Box
+              display="flex"
+              sx={{
+                justifyContent: "space-evenly",
+                flexDirection: "column",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              <Typography variant="h6">{user.displayName}</Typography>
+            </Box>
+          </Box>
         </MenuItem>
         <MenuItem onClick={handleAccountMenuClose}>
           <ListItemIcon>

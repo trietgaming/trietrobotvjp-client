@@ -8,7 +8,7 @@ import { useSnackbar } from "notistack";
 
 const BasicSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const currentUser = useUser();
+  const currentUser = useUser("displayName");
   const updateUserData = useUpdateUserData();
   const fileInputRef = useRef();
 
@@ -68,7 +68,6 @@ const BasicSettings = () => {
     <Formik {...formik}>
       <BasicSettingsComponent
         {...{
-          currentUser,
           handleResetForm,
           FileInputField,
         }}
