@@ -1,9 +1,10 @@
 import StyledNavButton from "./StyledNavButton";
 import { AppLogo } from "@assets/icons";
 import Typography from "@mui/material/Typography";
-import { useRef } from "preact/hooks";
+import { useRef } from "react";
+import { SxProps } from "@mui/material";
 
-const ApplicationLogo = (props) => {
+const ApplicationLogo = ({ sx }: { sx: SxProps }) => {
   const styles = useRef({
     StyledNavButton: {
       ml: -1,
@@ -12,7 +13,7 @@ const ApplicationLogo = (props) => {
       ":active": {
         transition: "none",
       },
-      ...props.sx,
+      ...sx,
     },
     AppLogo: { mr: 2 },
     Typography: { textTransform: "none" },

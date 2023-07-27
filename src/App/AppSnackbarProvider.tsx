@@ -1,12 +1,11 @@
-import { CSSProperties, useRef, MutableRefObject } from "react";
+import { CSSProperties, useRef, MutableRefObject, ReactChild } from "react";
 import { SnackbarAction, SnackbarKey, SnackbarProvider } from "notistack";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { MouseEventHandler } from "react";
 import { SnackbarOrigin } from "@mui/material";
-import { JSX } from "preact";
 
-const AppSnackbarProvider = ({ children }: { children: JSX.Element }) => {
+const AppSnackbarProvider = ({ children }: { children: ReactChild }) => {
   const notistackRef = useRef() as MutableRefObject<SnackbarProvider>;
 
   const onClickDismiss = (key: SnackbarKey) =>

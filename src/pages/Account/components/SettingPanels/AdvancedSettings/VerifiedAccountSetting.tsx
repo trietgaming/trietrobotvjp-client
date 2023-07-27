@@ -1,20 +1,25 @@
 import { Formik } from "formik";
 import VerifiedAccountSettingComponent from "./VerifiedAccountSettingComponent";
 import * as yup from "yup";
-import useUser from "@appHooks/useUser";
+import useUserAccount from "@appHooks/useUserAccount";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import useEnqueueSnackbar from "@appHooks/useEnqueueSnackbar";
-import useUpdateUser from "@appHooks/useUpdateUser";
+import useUser from "@appHooks/useUser";
+import useUpdateUserAccount from "@appHooks/useUpdateUserAccount";
 
 const VerifiedAccountSetting = () => {
-  const currentUser = useUser("account");
-  const { isBalancePublic, isInventoryPublic, isTradable } =
-    currentUser?.account || {};
+  const currentUser = useUser("uid");
+  const account = useUserAccount(
+    "isBalancePublic",
+    "isInventoryPublic",
+    "isTradable"
+  );
+  const { isBalancePublic, isInventoryPublic, isTradable } = account || {};
   const enqueueSnackbar = useEnqueueSnackbar();
-  const updateUser = useUpdateUser();
+  const updateUserAccount = useUpdateUserAccount();
 
-  return currentUser.account ? (
+  return account ? (
     <Formik
       {...{
         validationSchema: yup.object({
@@ -37,17 +42,17 @@ const VerifiedAccountSetting = () => {
             );
 
             if (!response.data.ok || !response.data.data) throw "unexpected";
-            currentUser.account = {
-              ...currentUser.account,
+            const newAccount = {
+              ...account,
               ...response.data.data,
             };
-            updateUser(currentUser);
+            updateUserAccount(newAccount);
             resetForm();
             enqueueSnackbar({
               message: "Thay đổi thành công!",
               variant: "success",
             });
-          } catch (err) {
+          } catch (err: any) {
             console.log(JSON.stringify(err.response, null, 2));
             enqueueSnackbar({ errCode: err?.response?.data?.code });
           }

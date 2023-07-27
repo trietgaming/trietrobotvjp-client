@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { ExtendedButtonProps } from "@mui/material";
+
+declare type ButtonProps = ExtendedButtonProps;
 
 const StyledNavButton = ({
   to = "/",
@@ -7,7 +10,7 @@ const StyledNavButton = ({
   color = "contrast",
   children,
   ...rest
-}) => {
+}: ExtendedButtonProps) => {
   return (
     <Button
       variant={variant}

@@ -109,10 +109,7 @@
       "@interfaces": ["./src/interfaces/index.ts"]
     },
     "types": ["vite/client"],
-    "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
-    "jsxImportSource": "preact"
+    "jsx": "react-jsx"
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

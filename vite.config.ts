@@ -1,16 +1,10 @@
-import prefresh from "@prefresh/vite";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 import fs from "fs";
-//@ts-ignore
-//eslint-disable-next-line
-
 // https://vitejs.dev/config/
 export default defineConfig({
   esbuild: {
-    jsxFactory: "h",
-    jsxFragment: "Fragment",
-    jsxInject: `import { h, Fragment } from 'preact'`,
     legalComments: "none",
     sourcemap: false,
     minify: true,
@@ -19,16 +13,13 @@ export default defineConfig({
     minifyWhitespace: true,
     sourcesContent: false,
   },
-  plugins: [svgr(), prefresh()],
+  plugins: [svgr(), react()],
   resolve: {
     alias: [
-      { find: "react", replacement: "preact/compat" },
-      { find: "react-dom", replacement: "preact/compat" },
       { find: "@appHooks", replacement: "/src/hooks" },
       { find: "@appFirebase", replacement: "/src/firebase" },
       { find: "@assets", replacement: "/src/assets" },
       { find: "@appComponents", replacement: "/src/global-components" },
-      { find: "react/jsx-runtime", replacement: "preact/jsx-runtime" },
       { find: "src", replacement: "/src" },
       { find: "@appStore", replacement: "/src/App/store" },
       { find: "@backend", replacement: "/src/backend" },

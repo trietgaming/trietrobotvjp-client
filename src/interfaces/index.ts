@@ -7,3 +7,13 @@ export interface UserAccountState {
   isInventoryPublic?: boolean;
   isTradable?: boolean;
 }
+
+export interface BackendAccountResponse {
+  level?: number;
+  wallet?: string;
+  bank?: string;
+  bank_limit?: string;
+  is_balance_public?: boolean;
+  is_inventory_public?: boolean;
+  is_tradable?: boolean;
+}

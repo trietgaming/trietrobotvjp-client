@@ -16,8 +16,9 @@ import { ReactComponent as _Coin } from "./svgs/coin-solid.svg";
 import { ReactComponent as _ShopOutlined } from "./svgs/shop-outlined.svg";
 import { ReactComponent as _Shop } from "./svgs/shop-solid.svg";
 import { ReactComponent as _MessengerIcon } from "./svgs/messenger.svg";
-
-const getSvgIcon = (Icon) => (props) =>
+import { FC } from "react";
+// eslint-disable-next-line
+const getSvgIcon = (Icon: FC) => (props: any) =>
   (
     <SvgIcon {...props}>
       <Icon />

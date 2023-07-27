@@ -1,6 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import { AppLogo } from "@assets/icons";
-import { useRef } from "preact/hooks";
+import { useRef } from "react";
 
 const CenteredLoading = ({ message, logo = false }) => {
   const mainStyle = useRef({

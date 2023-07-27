@@ -1,3 +1,4 @@
+import { BackendAccountResponse } from "./../interfaces/index";
 import { createSlice } from "@reduxjs/toolkit";
 import { UserAccountState } from "@interfaces";
 
@@ -6,28 +7,26 @@ const userAccountSlice = createSlice({
   initialState: {} as UserAccountState,
   reducers: {
     updateUserAccountState(
-      state,
-      {
-        payload: {
-          level,
-          wallet,
-          bank,
-          bankLimit,
-          isBalancePublic,
-          isInventoryPublic,
-          isTradable,
-        },
-      }: { payload: UserAccountState }
+      prevAccount,
+      { payload }: { payload: UserAccountState & BackendAccountResponse }
     ) {
       return {
-        ...state,
-        level,
-        wallet,
-        bank,
-        bankLimit,
-        isBalancePublic,
-        isInventoryPublic,
-        isTradable,
+        isBalancePublic:
+          payload.is_balance_public ??
+          payload.isBalancePublic ??
+          prevAccount?.isBalancePublic,
+        isInventoryPublic:
+          payload.is_inventory_public ??
+          payload.isInventoryPublic ??
+          prevAccount?.isInventoryPublic,
+        isTradable:
+          payload.is_tradable ?? payload.isTradable ?? prevAccount!.isTradable,
+        // bannerId: account?.banner_id ?? account?.bannerId,
+        wallet: payload.wallet ?? prevAccount?.wallet,
+        bank: payload.bank ?? prevAccount?.bank,
+        bankLimit:
+          payload.bank_limit ?? payload.bankLimit ?? prevAccount?.bankLimit,
+        level: payload.level ?? prevAccount?.level,
       };
     },
   },

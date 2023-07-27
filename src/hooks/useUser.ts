@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useMemo, useRef } from "preact/hooks";
+import { useMemo, useRef } from "react";
 import { User } from "@firebase/auth";
 import { RootStateType } from "@appStore";
 
